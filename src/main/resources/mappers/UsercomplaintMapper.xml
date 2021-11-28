@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 属性的值必须是对应接口的包名.接口名称 -->
+<mapper namespace="com.upc.hotel.mapper.UsercomplaintMapper">
+    <!--根据接口中的每一个方法进行sql的编写 -->
+    <!--
+        id属性对应接口中方法的名称
+        parameterType属性表示方法的参数类型，如果没有参数就不写了
+        resultType属性表示方法执行后的返回值类型，如果返回值类型
+                为集合(List)，那么resultType对应集合中的泛型类型
+                例如 List<Emp>   resultType="Emp"
+                通常select标签必须有resultType属性
+    -->
+
+    <insert id="dosave">
+        insert into
+        usercomplaint(userName,userPhoneNumber,userRespondentName,
+        userRespondentPhoneNumber,userComplaintInfo,userComplaintDate)
+        values (#{userName},#{userPhoneNumber},#{userRespondentName},#{userRespondentPhoneNumber},
+        #{userComplaintInfo},#{userComplaintDate})
+    </insert>
+    <select resultType="com.upc.hotel.po.Usercomplaint" id="findAll">
+select userName, userPhoneNumber, userRespondentName, userRespondentPhoneNumber,userComplaintInfo,userComplaintDate
+from usercomplaint
+order by userComplaintDate desc </select>
+
+
+</mapper>

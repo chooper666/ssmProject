@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 属性的值必须是对应接口的包名.接口名称 -->
+<mapper namespace="com.upc.hotel.mapper.HousemsgMapper">
+    <!--根据接口中的每一个方法进行sql的编写 -->
+    <!--
+        id属性对应接口中方法的名称
+        parameterType属性表示方法的参数类型，如果没有参数就不写了
+        resultType属性表示方法执行后的返回值类型，如果返回值类型
+                为集合(List)，那么resultType对应集合中的泛型类型
+                例如 List<Emp>   resultType="Emp"
+                通常select标签必须有resultType属性
+    -->
+
+    <insert id="save"
+        parameterType="com.upc.hotel.dto.HousemsgDto">
+insert into housemsg
+(housePbTime,houseSellerId,houseName,houseAdr,housePrice,houseGuest,houseInfo,houseImg,houseSellerName,houseSellerPhoneNumber)
+values(#{housePbTime},#{houseSellerId},#{houseName},#{houseAdr},#{housePrice},#{houseGuest},#{houseInfo},#{houseImg},#{houseSellerName},#{houseSellerPhoneNumber})
+    </insert>
+    <update id="updateUser">
+        update housemsg
+        set houseSellerName=#{houseSellerName},houseSellerPhoneNumber=#{houseSellerPhoneNumber}
+        where houseSellerId=#{houseSellerId}
+    </update>
+    <update id="update1" parameterType="com.upc.hotel.dto.HousemsgDto">
+        update housemsg
+        set houseName=#{houseName},houseInfo=#{houseInfo},houseAdr=#{houseAdr},houseGuest=#{houseGuest},housePrice=#{housePrice}
+        where houseId=#{houseId}
+    </update>
+    <update id="update2">
+              update housemsg
+        set houseImg=#{houseImg},houseName=#{houseName},houseInfo=#{houseInfo},houseAdr=#{houseAdr},houseGuest=#{houseGuest},housePrice=#{housePrice}
+        where houseId=#{houseId}
+    </update>
+    <update id="updateStatus" parameterType="com.upc.hotel.dto.HousecomDto">
+        update housemsg
+        set houseStatus=1
+        where houseId=#{houseId}
+    </update>
+    <delete id="delete" parameterType="com.upc.hotel.dto.HousemsgDto">
+        delete from housemsg
+        where houseId=#{houseId}
+    </delete>
+    <resultMap id="housemsgMap" type="com.upc.hotel.po.Housemsg">
+    <id column="houseId" property="houseId"/>
+    <result column="houseName" property="houseName"/>
+    <result column="houseInfo" property="houseInfo"/>
+    <result column="houseAdr" property="houseAdr"/>
+    <result column="houseImg" property="houseImg"/>
+    <result column="houseSellerName" property="houseSellerName"/>
+    <result column="houseSellerPhoneNumber" property="houseSellerPhoneNumber"/>
+    <result column="housePrice" property="housePrice"/>
+    <result column="houseGuest" property="houseGuest"/>
+    <result column="houseStatus" property="houseStatus"/>
+<association property="ordermsg" javaType="com.upc.hotel.po.Ordermsg">
+<id column="orderId" property="orderId"/>
+<result column="orderStartTime" property="orderStartTime"/>
+    <result column="orderStatus" property="orderStatus"/>
+    <result column="orderFinishTime" property="orderFinishTime"/>
+</association>
+</resultMap>
+    <select id="findAll" resultType="com.upc.hotel.po.Housemsg"
+        parameterType="com.upc.hotel.dto.HousemsgDto">
+        select *
+        from housemsg
+        where houseId not in
+        (select houseId
+        from ordermsg
+        where ((STR_TO_DATE(orderStartTime,'%Y-%m-%d')>=STR_TO_DATE(#{orderStartTime},'%Y-%m-%d')
+        and STR_TO_DATE(orderFinishTime,'%Y-%m-%d')&lt;=STR_TO_DATE(#{orderFinishTime},'%Y-%m-%d')and orderStatus=1 ) or
+
+        (STR_TO_DATE(orderStartTime,'%Y-%m-%d')&lt;STR_TO_DATE(#{orderStartTime},'%Y-%m-%d')
+        and 	STR_TO_DATE(orderFinishTime,'%Y-%m-%d')>STR_TO_DATE(#{orderStartTime},'%Y-%m-%d')and orderStatus=1) or
+
+        (STR_TO_DATE(orderFinishTime,'%Y-%m-%d')>STR_TO_DATE(#{orderFinishTime},'%Y-%m-%d')
+        and STR_TO_DATE(orderStartTime,'%Y-%m-%d')&lt;STR_TO_DATE(#{orderFinishTime},'%Y-%m-%d')and orderStatus=1)
+        )and orderStatus=0)
+        <if test="houseAdr!=null and houseAdr!=''">
+            and houseAdr like concat('%',#{houseAdr},'%')
+        </if>
+        and houseStatus=1
+    </select>
+    <select id="findById" resultType="com.upc.hotel.po.Housemsg"
+    parameterType="int">
+        select *
+        from housemsg
+        where houseId=#{houseId}
+    </select>
+    <select id="userfindAll" resultType="com.upc.hotel.po.Housemsg"
+    parameterType="com.upc.hotel.dto.HousemsgDto">
+        select *
+        from housemsg
+        <where>
+            <if test="houseSellerId!=null and houseSellerId!=''">
+                and houseSellerId=#{houseSellerId}
+            </if>
+        </where>
+        order by housePbTime DESC
+    </select>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.upc.hotel.mapper.OrdermsgMapper">
+    <insert id="save" parameterType="com.upc.hotel.dto.OrdermsgDto">
+    insert into ordermsg(orderUserName, orderUserPhoneNumber, orderHouseName, orderHouseAdr, orderHouseSellerName, orderSellerPhoneNumber, orderPrice, orderTime, orderStartTime, orderFinishTime,houseId)
+    values(#{orderUserName}, #{orderUserPhoneNumber}, #{orderHouseName}, #{orderHouseAdr}, #{orderHouseSellerName}, #{orderSellerPhoneNumber}, #{orderPrice}, #{orderTime}, #{orderStartTime}, #{orderFinishTime},#{houseId})
+    </insert>
+    <update id="update" parameterType="int">
+        update ordermsg set orderStatus=1
+        where orderId=#{orderId}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from ordermsg
+        where orderId=#{orderId}
+    </delete>
+    <select id="findAll" resultType="com.upc.hotel.po.Ordermsg"
+        parameterType="com.upc.hotel.dto.OrdermsgDto">
+        select *
+        from  ordermsg
+        <where>
+        <if test="orderUserPhoneNumber!=null and orderUserPhoneNumber!=''">
+            and orderUserPhoneNumber=#{orderUserPhoneNumber}
+        </if>
+                <if test="orderHouseAdr != null and orderHouseAdr != ''">
+                    and orderHouseAdr like '%${orderHouseAdr}%'
+                </if>
+            <if test="orderSellerPhoneNumber != null and orderSellerPhoneNumber != ''">
+                and orderSellerPhoneNumber =#{orderSellerPhoneNumber}
+            </if>
+            <if test="orderStartTime!=null and orderStartTime!=''">
+                and str_to_date(orderStartTime, '%Y-%m-%d')
+                >= str_to_date(#{orderStartTime},'%Y-%m-%d')
+            </if>
+
+            <if test="orderFinishTime!=null and orderFinishTime!=''">
+                and str_to_date(orderFinishTime, '%Y-%m-%d')
+                &lt;= str_to_date(#{orderFinishTime},'%Y-%m-%d')
+            </if>
+        </where>
+             order by orderStartTime desc
+
+
+    </select>
+
+
+</mapper>

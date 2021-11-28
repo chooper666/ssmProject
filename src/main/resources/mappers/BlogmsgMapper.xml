@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 属性的值必须是对应接口的包名.接口名称 -->
+<mapper namespace="com.upc.hotel.mapper.BlogmsgMapper">
+    <!--根据接口中的每一个方法进行sql的编写 -->
+    <!--
+        id属性对应接口中方法的名称
+        parameterType属性表示方法的参数类型，如果没有参数就不写了
+        resultType属性表示方法执行后的返回值类型，如果返回值类型
+                为集合(List)，那么resultType对应集合中的泛型类型
+                例如 List<Emp>   resultType="Emp"
+                通常select标签必须有resultType属性
+    -->
+
+    <insert parameterType="com.upc.hotel.dto.BlogmsgDto" id="save">
+insert into blogmsg
+(blogPublisherName, blogPublisherPhoneNumber, blogDate, blogTitle, blogInfo, blogImg,blogPublisherId)
+values(#{blogPublisherName},#{blogPublisherPhoneNumber},#{blogDate},
+#{blogTitle},#{blogInfo},#{blogImg},#{blogPublisherId})
+</insert>
+    <update id="update1" parameterType="com.upc.hotel.dto.BlogmsgDto">
+        update blogmsg
+        set blogTitle=#{blogTitle},blogInfo=#{blogInfo}
+        where blogId=#{blogId}
+    </update>
+    <update id="update2" parameterType="com.upc.hotel.dto.BlogmsgDto">
+        update blogmsg
+        set blogTitle=#{blogTitle},blogInfo=#{blogInfo},blogImg=#{blogImg}
+        where blogId=#{blogId}
+    </update>
+    <update id="updateUser" parameterType="com.upc.hotel.dto.BlogmsgDto">
+        update blogmsg
+        set blogPublisherName=#{blogPublisherName},blogPublisherPhoneNumber=#{blogPublisherPhoneNumber}
+        where blogPublisherId=#{blogPublisherId};
+
+    </update>
+    <delete id="doDelete" parameterType="int">
+        delete from
+        blogmsg
+        where blogId=#{blogId}
+    </delete>
+    <select id="findAll" resultType="com.upc.hotel.po.Blogmsg"
+    parameterType="com.upc.hotel.dto.BlogmsgDto">
+        select *
+        from blogmsg
+        <where>
+            <if test="blogPublisherId!=null and blogPublisherId!=''">
+                and blogPublisherId=#{blogPublisherId}
+            </if>
+            <if test="blogInfo!=null and blogInfo!=''">
+            and blogInfo like concat('%',#{blogInfo},'%')
+        </if>
+        </where>
+    </select>
+    <select id="findById" resultType="com.upc.hotel.po.Blogmsg"
+        parameterType="int">
+        select *
+        from blogmsg
+        where blogId=#{blogId}
+    </select>
+</mapper>

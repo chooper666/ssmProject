@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 属性的值必须是对应接口的包名.接口名称 -->
+<mapper namespace="com.upc.hotel.mapper.UsermsgMapper">
+    <!--根据接口中的每一个方法进行sql的编写 -->
+    <!--
+        id属性对应接口中方法的名称
+        parameterType属性表示方法的参数类型，如果没有参数就不写了
+        resultType属性表示方法执行后的返回值类型，如果返回值类型
+                为集合(List)，那么resultType对应集合中的泛型类型
+                例如 List<Emp>   resultType="Emp"
+                通常select标签必须有resultType属性
+    -->
+    <insert id="save"
+            parameterType="com.upc.hotel.dto.UsermsgDto">
+        insert into usermsg
+            (userName, userPhoneNumber, userIdcard, userAdr, userPwd,userAnswer,userQuestion)
+        values(#{userName},#{userPhoneNumber},#{userIdcard},#{userAdr},md5(#{userPwd}),#{userAnswer},#{userQuestion})
+    </insert>
+    <update id="update"
+        parameterType="com.upc.hotel.dto.UsermsgDto">
+        update usermsg set
+        userName = #{userName},userIdcard= #{userIdcard},
+        userAdr = #{userAdr},userPhoneNumber=#{userPhoneNumber}
+        where userId = #{userId}
+    </update>
+    <update id="doCharge" parameterType="com.upc.hotel.dto.UsermsgDto">
+        update usermsg set
+        userWallet=userWallet+#{userWallet}
+        where userId=#{userId}
+    </update>
+    <update id="seller" parameterType="com.upc.hotel.dto.UsermsgDto">
+        update usermsg set
+        userStatus=1,userWallet=userWallet-500
+        where userId=#{userId}
+    </update>
+    <update id="updateconsum" parameterType="com.upc.hotel.dto.UsermsgDto">
+        update usermsg set
+        userWallet=userWallet-#{userWallet}
+        where userId=#{userId}
+    </update>
+    <update id="updateforget">
+        update usermsg
+        set userPwd=md5(#{userPwd})
+        where userPhoneNumber=#{userPhoneNumber} and userQuestion=#{userQuestion}
+        and userAnswer=#{userAnswer}
+    </update>
+    <update id="sellerWallet" parameterType="com.upc.hotel.dto.UsermsgDto">
+        update usermsg
+        set userWallet=userWallet+#{userWallet}
+        where userPhoneNumber=#{userPhoneNumber}
+    </update>
+    <select id="search" resultType="com.upc.hotel.po.Usermsg"
+        parameterType="com.upc.hotel.dto.UsermsgDto">
+    select * from usermsg
+    where userPhoneNumber=(#{userPhoneNumber}) and userPwd=md5(#{userPwd})
+    </select>
+    <select id="findById" resultType="com.upc.hotel.po.Usermsg"
+        parameterType="int">
+        select * from usermsg
+        where userId=#{userId}
+    </select>
+    <select id="findAll" resultType="com.upc.hotel.dto.UsermsgDto">
+        select *
+        from usermsg
+    </select>
+    <select id="chat" resultType="com.upc.hotel.dto.UsermsgDto">
+        select userId as id,userName as username,userPhoneNumber as account
+        from usermsg
+    </select>
+
+</mapper>
