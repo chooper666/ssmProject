@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <link href='#css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- Custom Theme files -->
+    <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+</head>
+<body>
+<iframe name="frame" src="top.html" frameborder="0"  width="100%" height="145.5px" style="display: flex" ></iframe>
+<!--- banner-1 ---->
+<div class="banner-1">
+    <div class="container">
+        <h1 class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">生  &nbsp; 活 &nbsp;  与&nbsp;   美&nbsp;   好   &nbsp;尽   &nbsp;在   &nbsp;这 &nbsp;  里</h1>
+    </div>
+</div>
+<!--- /banner-1 ---->
+<!--- blog ---->
+<div class="blog">
+    <div class="container">
+        <div class="ban-top">
+            <div class="bnr-left">
+                <input class="city" name="orderHouseName" id="name" type="text" placeholder="输入民宿城市(可不填)">
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="ban-bottom">
+
+            <div class="bnr-right">
+
+
+                <input class="date" name="orderStartTime" id="datepicker" type="text" placeholder="请选择开始日期(必填)">
+            </div>
+            <div class="bnr-right">
+
+                <input class="date" name="orderFinishTime" id="datepicker1" type="text" placeholder="请选择结束日期(必填)">
+            </div>
+
+            <div class="clearfix"></div>
+            <!---start-date-piker---->
+            <link rel="stylesheet" href="css/jquery-ui.css" />
+            <script src="js/jquery-ui.js"></script>
+            <script>
+                $(function() {
+                    $("#datepicker,#datepicker1").datepicker();
+                });
+
+            </script>
+            <!---/End-date-piker---->
+        </div>
+        <div class="sear">
+            <button id="seabtn" class="seabtn" onclick="init()">搜索</button>
+        </div>
+        <div class="col-md-11 blog-left">
+            <div id="houseData">
+
+            </div>
+            <nav>
+                <ul id="housePage" class="pagination paging animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+
+                </ul>
+            </nav>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<!--- /blog ---->
+<!--- footer-top ---->
+<!--- /footer-top ---->
+<!---copy-right ---->
+<div class="copy-right">
+    <div class="container">
+
+        <div class="footer-social-icons wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+            <ul>
+                <li><a class="facebook" href="#"><span>Facebook</span></a></li>
+                <li><a class="twitter" href="#"><span>Twitter</span></a></li>
+                <li><a class="flickr" href="#"><span>Flickr</span></a></li>
+                <li><a class="googleplus" href="#"><span>Google+</span></a></li>
+                <li><a class="dribbble" href="#"><span>Dribbble</span></a></li>
+            </ul>
+        </div>
+        <p class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">© 2016 Green Wheels . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+    </div>
+</div>
+<!--- /copy-right ---->
+
+<script>
+
+    var pageNum=1;
+    var pageSize=5;
+    var pageNums=0;
+
+
+    function init() {
+        var houseAdr=jQuery("#name").val();
+        var orderHouseStartTime=jQuery("#datepicker").val();
+        var orderHouseFinishTime=jQuery("#datepicker1").val();
+        console.log(orderHouseStartTime+"time");
+
+        if(orderHouseFinishTime==''||orderHouseStartTime==''){
+            alert("请填写日期！")
+            return;
+        }
+        var datestart= new Date(orderHouseStartTime.replace(/-/,"/"));
+        var datefinish=new Date(orderHouseFinishTime.replace(/-/,"/"));
+        var date=new Date();
+        var year=date.getFullYear();
+        var month=date.getMonth()+1;
+        var date=date.getDate();
+        var day=(year+"-"+month+"-"+date);
+        var now=new Date(day.replace(/-/,"/"))
+        if(datestart>datefinish || now>datestart){
+            alert("请正确填写日期");
+            return;
+        }
+        var param={
+            "pageNum":pageNum,
+            "pageSize":pageSize,
+            "orderStartTime":orderHouseStartTime,
+            "orderFinishTime":orderHouseFinishTime,
+            "houseAdr":houseAdr
+        };
+        jQuery.post("housemsg/findAll",param,function (rst) {
+            console.log(rst);
+            pageNums=rst.pages;
+            var arrs=rst.list;
+            var trs='';
+            console.log(arrs.length)
+            for(var i=0;i<arrs.length;i++){
+                var u=arrs[i];
+                var grade=0;
+                $.ajax({
+
+                    type: "post",
+
+                    async: false,
+
+                    url: "housecom/findGrade",
+
+                    data: {
+
+                        "houseId": u.houseId
+
+                    },
+
+                    datatype: "json",
+
+                    success: function (r) {
+
+                        if(r){
+                            grade=r.houseComGrade;
+                        }
+
+                    }
+
+                });
+                console.log(grade+"grade2");
+                    console.log(u.houseGuest);
+                    trs+=`
+\t\t<div class="details-top">
+\t\t\t<div class="col-md-3 details-left wow fadeInLeft animated" data-wow-delay=".5s">
+\t\t\t\t<img style="width: 300px;height: 130px"src="images/${u.houseImg}" class="img-responsive" alt="">
+\t\t\t</div>
+\t\t\t<div class="col-md-6 details-middle wow fadeInUp animated" data-wow-delay=".5s">
+\t\t\t\t<h3><a href="#">${u.houseName}</a></h3>
+<li><a href="#" onclick="houseLocation('${u.houseAdr}')"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>${u.houseAdr}</a><i>|</i></li>
+\t\t\t\t<li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>容纳人数：${u.houseGuest}</a><i>|</i></li>
+<li><a href="#"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>用户评分：${grade}</a></li>
+\t\t\t\t<div class="clearfix"></div>
+\t\t\t</div>
+\t\t\t<div class="col-md-3 details-right wow fadeInRight animated" data-wow-delay=".5s">
+\t\t\t\t<h5>￥${u.housePrice}(一晚)</h5>
+\t\t\t\t<a href="#" onclick="houseBuy(${u.houseId},&quot;${orderHouseStartTime}&quot;,&quot;${orderHouseFinishTime}&quot;)" target="_top" class="view">查看更多</a>
+\t\t\t</div>
+\t\t\t\t<div class="clearfix"></div>
+\t\t</div>`;
+
+
+
+
+            }
+            console.log(orderHouseStartTime);
+            //var c=document.getElementById("houseData");
+            //c.innerHTML+=trs;
+            jQuery("#houseData").html(trs);
+            var nums=rst.navigatepageNums;
+            var nav=`<li>
+<a href="#" aria-label="Previous" onclick="pageUtil(${pageNum-1})">
+<span aria-hidden="true">«</span>
+</a>
+</li>`;
+            for(var i=0;i<nums.length;i++){
+                nav+=`<li class="page-item ${pageNum==nums[i]?'active':''}"><a href="#" onclick="pageUtil(${nums[i]})">${nums[i]}</a></li>`;
+            }
+            nav+=`<li>
+<a href="#" aria-label="Next" onclick="pageUtil(${pageNum+1})">
+<span aria-hidden="true">»</span>
+</a>
+</li>`;
+            jQuery("#housePage").html(nav);
+
+        })
+
+    }
+    function houseLocation(location){
+        window.open('Map.html?'+'location=' + encodeURI(location));
+    }
+    jQuery(function () {
+
+    })
+    function pageUtil(num) {
+        if(num<=1){
+            num=1;
+        }
+        if(num>=pageNums){
+            num=pageNums;
+        }
+        pageNum=num;
+        init();
+
+    }
+    function houseBuy(houseId,orderHouseStartTime,orderHouseFinishTime) {
+        location.href="siglepage.html";
+        console.log(orderHouseStartTime);
+        var houseinfo={
+            "orderStartTime":orderHouseStartTime,
+            "houseId":houseId,
+            "orderFinishTime":orderHouseFinishTime
+        }
+        sessionStorage.setItem("houseinfo",JSON.stringify(houseinfo));
+    }
+</script>
+</body>
+</html>

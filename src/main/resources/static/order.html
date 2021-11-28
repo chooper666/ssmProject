@@ -1,0 +1,1029 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Contact</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+
+    <script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <link href='#css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- Custom Theme files -->
+    <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+
+    <!-- 部署我发给你的zidingyi.css -->
+    <!-- <link rel="stylesheet" href="css/zidingyi.css"> -->
+    <link rel="stylesheet" href="css/star-main.css" media="all" type="text/css"/>
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+    <style type="text/css">
+        /* #nav {
+            width: 964.8px;
+            height: 46px;
+        } */
+        
+        #nav-ul {
+            float: left;
+        }
+        
+        #top {
+            padding: 10px 10px 10px 10px;
+            text-align: right;
+            float: right;
+        }
+        
+        #ttop {
+            text-align: center;
+        }
+        
+        #btop {
+            padding: 10px 20px 10px 10px;
+            margin: 0px 10px 0px 0px;
+            text-align: center;
+        }
+        
+        #tablehead1,
+        #tablehead {
+            font-family: "Microsoft Yahei";
+            font-size: 16px;
+        }
+        
+        #page_div,
+        #page_div1,
+        #left,
+        #left1 {
+            float: left;
+        }
+        
+        #page_div,
+        #page_div1,
+        #right,
+        #right1 {
+            float: right;
+        }
+    </style>
+    <link rel="stylesheet" href="css/zidingyi.css">
+
+    <!--//end-animate-->
+</head>
+
+<body>
+<iframe name="frame" src="top.html" frameborder="0"  width="100%" height="145.5px" style="display: flex" ></iframe>
+<div class="banner-1">
+    <div class="container">
+        <h1 class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">生  &nbsp; 活 &nbsp;  与&nbsp;   美&nbsp;   好   &nbsp;尽   &nbsp;在   &nbsp;这 &nbsp;  里</h1>
+    </div>
+</div>
+    <!-- 删除模态框 -->
+    <div class="modal fade" id="delDialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">提示</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p>您确定要删除吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="doDelete()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 删除模态框结束 -->
+
+    <!-- 删除模态框1 -->
+    <div class="modal fade" id="delDialog1" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">提示</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p>您确定要删除吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="doDelete1()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 删除模态框1结束 -->
+
+    <!-- 退订模态框 -->
+    <div class="modal fade" id="editDialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">编辑</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p>您确定要退订吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="doEdit()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 退订模态框结束 -->
+<!--评价模态框-->
+<div class="modal fade" id="comDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <section>
+                <div class="modal-body modal-spa">
+                    <div class="login-grids">
+                        <div class="login">
+                            <div class="login-right">
+                                <form>
+                                    <h3 style="text-align:center;font-size: 2rem;">评价界面</h3>
+                                    <div class="evalBody">
+                                        <div class="manyidu" style="text-align: center;">
+                                            <span style="text-align:center; font-size: 1.5rem;line-height: 2.9rem;padding: 1rem;" id="starStr">满意度</span>
+                                            <div class="panel-body" style="text-align: center; margin-left: 23%;">
+                                                <input name="starNum" id="starNum" type="hidden"/>
+                                                <div class="starability-container">
+                                                    <fieldset class="starability-slot">
+                                                        <input type="radio" id="rate_1_0_1_5" name="starLevel" value="5" />
+                                                        <label for="rate_1_0_1_5" title="5星"></label>
+                                                        <input type="radio" id="rate_1_0_1_4" name="starLevel" value="4" />
+                                                        <label for="rate_1_0_1_4" title="4星"></label>
+                                                        <input type="radio" id="rate_1_0_1_3" name="starLevel" value="3" />
+                                                        <label for="rate_1_0_1_3" title="3星"></label>
+                                                        <input type="radio" id="rate_1_0_1_2" name="starLevel" value="2" />
+                                                        <label for="rate_1_0_1_2" title="2星"></label>
+                                                        <input type="radio" id="rate_1_0_1_1" name="starLevel" value="1" />
+                                                        <label for="rate_1_0_1_1" title="1星"></label>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input id="houseId" type="hidden">
+                                    <input id="orderId" type="hidden">
+                                    <textarea style="text-align:center;width: 400px;height: 250px" type="text" placeholder="请输入评价内容"id="cominfo"></textarea>
+                                    <button type="button" onclick="comsave()" >确定评价</button>
+                                </form>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="complaintDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <section>
+                <div class="modal-body modal-spa">
+                    <div class="login-grids">
+                        <div class="login">
+                            <div class="login-right">
+                                <form>
+                                    <h3 style="text-align:center">投诉界面</h3>
+                                    <div></div>
+                                    <input id="comReName" type="hidden">
+                                    <input id="comRePN" type="hidden">
+                                    <textarea style="text-align:center;width: 400px;height: 250px" type="text" placeholder="请输入投诉内容"id="complaintinfo"></textarea>
+                                    <button type="button" onclick="doComplaintSave()" >确定投诉</button>
+                                </form>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+    <div class="contact">
+        <div class="container">
+            <!-- 上面搜索区域开始 -->
+            <div id="container" class="con-top animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+                <div id="ttop">
+                    <h3>订单管理</h3>
+                </div>
+                <div id="btop">
+                    <form id="searchForm">
+                        <div class="ban-top">
+                            <div class="bnr-left">
+                                <input class="city" name="orderHouseName" id="name" type="text" placeholder="输入城市，地区，或者部分名字">
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="ban-bottom">
+
+                            <div class="bnr-right">
+
+
+                                <input class="date" name="orderStartTime" id="datepicker" type="text" placeholder="yy-mm-dd">
+                            </div>
+                            <div class="bnr-right">
+
+                                <input class="date" name="orderFinishTime" id="datepicker1" type="text" placeholder="yy-mm-dd">
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <!---start-date-piker---->
+                            <link rel="stylesheet" href="css/jquery-ui.css" />
+                            <script src="js/jquery-ui.js"></script>
+                            <script>
+                                $(function() {
+                                    $("#datepicker,#datepicker1").datepicker();
+                                });
+                            </script>
+                            <!---/End-date-piker---->
+                        </div>
+                    </form>
+
+                    <div class="sear">
+
+                        <button id="seabtn" class="seabtn" onclick="init()">搜索订单</button>
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+                <!-- 上面搜索区域结束 -->
+
+
+
+
+
+
+
+                <!-- 住房订单 -->
+                <div id="bottom">
+                    <!-- class="table table-bordered table-hover table-striped" -->
+                    <h4>住房订单</h4>
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr class="table-primary" id="tablehead">
+                                <td>
+                                    删除
+                                </td>
+                                <td>订单号</td>
+                                <td>房源名</td>
+                                <td>房源地点</td>
+                                <td>房东</td>
+                                <td>房东手机号</td>
+                                <td>成交金额</td>
+                                <td>房源时长</td>
+                                <td>房源起始时间</td>
+                                <td>房源结束时间</td>
+                                <td>订单状态</td>
+
+                                <td colspan="3" style="text-align: center">操作</td>
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody id="data">
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="14">
+                                    <div id="page_div">
+                                        <div id="left">
+                                            <span id="pageNum"></span>/<span id="pages"></span> &nbsp;&nbsp;&nbsp;&nbsp; 共
+                                            <span id="totals"></span>条
+                                        </div>
+                                        <div id="right">
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!-- 住房订单结束 -->
+
+<div id="sellerOrderInfo">
+
+</div>
+                    <!--显示出租订单  -->
+
+                </div>
+
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--显示出租订单结束  -->
+<!--- footer-top ---->
+<div class="footer-top">
+    <div class="container">
+        <div class="col-md-6 footer-left wow fadeInLeft animated" data-wow-delay=".5s">
+            <h3>Bus Operators</h3>
+            <ul>
+                <li><a href="bus.html">New York  Charter </a></li>
+                <li><a href="bus.html">Washington Charter</a></li>
+                <li><a href="bus.html">Los Angeles Charter</a></li>
+                <li><a href="bus.html">Chicago Charter</a></li>
+                <li><a href="bus.html">Orlando Charter</a></li>
+                <li><a href="bus.html">New Orleans Charter</a></li>
+                <li><a href="bus.html">Houston Charter</a></li>
+                <li><a href="bus.html">Nashville Charter</a></li>
+                <li><a href="bus.html">Charlotte Charter</a></li>
+                <li><a href="bus.html">Toronto Charter</a></li>
+                <li><a href="bus.html">Washington Charter</a></li>
+                <li><a href="bus.html">Los Angeles Charter</a></li>
+                <li><a href="bus.html">Chicago Charter</a></li>
+                <li><a href="bus.html">Orlando Charter</a></li>
+                <li><a href="bus.html">New Orleans Charter</a></li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <div class="col-md-6 footer-left wow fadeInRight animated" data-wow-delay=".5s">
+            <h3>Bus Routes</h3>
+            <ul>
+                <li><a href="travels.html">Alabama-California</a></li>
+                <li><a href="travels.html">Alaska-Colorado</a></li>
+                <li><a href="travels.html">Arizona-Delaware</a></li>
+                <li><a href="travels.html">Arkansas-Florida</a></li>
+                <li><a href="travels.html">Kansas-Georgia</a></li>
+                <li><a href="travels.html">Iowa-Hawaii</a></li>
+                <li><a href="travels.html">Indiana-Illinois</a></li>
+                <li><a href="travels.html">Illinois-Florida</a></li>
+                <li><a href="travels.html">Idaho-Indiana</a></li>
+                <li><a href="travels.html">Hawaii-Iowa</a></li>
+                <li><a href="travels.html">Georgia-Kansas</a></li>
+                <li><a href="travels.html">Florida-Arkansas</a></li>
+                <li><a href="travels.html">Delaware-Arizona</a></li>
+                <li><a href="travels.html">Colorado-Alaska</a></li>
+                <li><a href="travels.html">California-Alabama</a></li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--- /footer-top ---->
+<!---copy-right ---->
+<div class="copy-right">
+    <div class="container">
+
+        <div class="footer-social-icons wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+            <ul>
+                <li><a class="facebook" href="#"><span>Facebook</span></a></li>
+                <li><a class="twitter" href="#"><span>Twitter</span></a></li>
+                <li><a class="flickr" href="#"><span>Flickr</span></a></li>
+                <li><a class="googleplus" href="#"><span>Google+</span></a></li>
+                <li><a class="dribbble" href="#"><span>Dribbble</span></a></li>
+            </ul>
+        </div>
+        <p class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">© 2016 Green Wheels . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+    </div>
+</div>
+
+    <!-- init开始 -->
+    <script>
+        var str=sessionStorage.getItem("info");
+        var user=JSON.parse(str);
+        //声明变量，存放当前页和每页的条数
+        //当前页
+        var pageNum = 1;
+        //每页条数
+        var pageSize = 3;
+
+
+        //总页数
+        var pages = 0;
+        //从后台获取当前页对应条数的数据
+        function init() {
+            //其中"pageNum"必须与后台参数同名
+            init1();
+            var orderHouseName = jQuery("#name").val();
+            var orderHouseStartTime = jQuery("#datepicker").val();
+            var orderHouseFinishTime = jQuery("#datepicker1").val();
+
+            console.log(orderHouseName);
+            console.log(orderHouseStartTime);
+            console.log(typeof orderHouseStartTime);
+            var datestart= new Date(orderHouseStartTime.replace(/-/,"/"));
+            var datefinish=new Date(orderHouseFinishTime.replace(/-/,"/"));
+            if(datestart>datefinish){
+                alert("请正确填写日期");
+                return;
+            }
+            var param = {
+                "pageNum": pageNum,
+                "pageSize": pageSize,
+                "orderHouseAdr": orderHouseName,
+                "orderStartTime": orderHouseStartTime,
+                "orderFinishTime": orderHouseFinishTime,
+                "orderUserPhoneNumber":user.userPhoneNumber
+            };
+            console.log(param);
+            jQuery.post("order/findAll", param, function(rst) {
+                pageNums = rst.pages;
+                jQuery("#pages").html(pageNums);
+                jQuery("#pageNum").html(pageNum);
+                jQuery("#totals").html(rst.total);
+                //把查询的数据显示到表格的tbody位置
+                //1.获取查询的数据
+                var arrs = rst.list;
+                var trs = '';
+                for (var i = 0; i < arrs.length; i++) {
+                    //获取每一行对应的用户对象
+                    var u = arrs[i];
+                    var datefinish= new Date(u.orderFinishTime.replace(/-/,"/"));
+                    var date=new Date();
+                    var year=date.getFullYear();
+                    var month=date.getMonth()+1;
+                    var date=date.getDate();
+                    var day=(year+"-"+month+"-"+date);
+                    var now=new Date(day.replace(/-/,"/"))
+                    if (datefinish < now) {
+                        u.orderStatus = 1;
+                        update(u.orderId,u.orderPrice,u.orderSellerPhoneNumber);
+                    }
+                    //循环一次在页面中产生一行数据
+                    //使用反引号，可以使用模板字符串，用于定义模板
+                    if(u.orderStatus==0){
+                        trs += `<tr class="${u.orderStatus==1?'table-success':'table-warning'}">
+                                <td>
+                                    <a href="#" onclick="showDeleteDialog('${u.orderId}')">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </td>
+                                <td>${u.orderId}</td>
+                                <td>${u.orderHouseName}</td>
+                                <td>${u.orderHouseAdr}</td>
+                                <td>${u.orderHouseSellerName}</td>
+                                <td>${u.orderSellerPhoneNumber}</td>
+                                <td>${u.orderPrice}</td>
+                                <td>${u.orderTime}天</td>
+                                <td>${u.orderStartTime}</td>
+                                <td>${u.orderFinishTime}</td>
+                                <td>${u.orderStatus==1?'订单结束':'订单开始'}</td>
+                                <td></td>
+                                <td><button id="comment" type="button" class="btn btn-info" onclick="showEditDialog('${u.orderId}','${u.orderStatus}')">退订</button></td>
+                                <td><button id="comment" type="button" class="btn btn-info" onclick="showComplaintDialog(&quot;${u.orderHouseSellerName}&quot;,&quot;${u.orderSellerPhoneNumber}&quot;)">投诉</button></td>
+                            </tr>
+
+							`;
+                    }
+                    else{
+                        trs += `<tr class="${u.orderStatus==1?'table-success':'table-warning'}">
+                                <td>
+                                    <a href="#" onclick="showDeleteDialog('${u.orderId}')">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </td>
+                                <td>${u.orderId}</td>
+                                <td>${u.orderHouseName}</td>
+                                <td>${u.orderHouseAdr}</td>
+                                <td>${u.orderHouseSellerName}</td>
+                                <td>${u.orderSellerPhoneNumber}</td>
+                                <td>${u.orderPrice}</td>
+                                <td>${u.orderTime}天</td>
+                                <td>${u.orderStartTime}</td>
+                                <td>${u.orderFinishTime}</td>
+                                <td>${u.orderStatus==1?'订单结束':'订单开始'}</td>
+                                <td><button id="comment" type="button" class="btn btn-info" onclick="showComDialog(${u.houseId},${u.orderId})">评价</button></td>
+                                <td></td>
+                                <td><button id="comment" type="button" class="btn btn-info" onclick="showComplaintDialog(&quot;${u.orderHouseSellerName}&quot;,&quot;${u.orderSellerPhoneNumber}&quot;)">投诉</button></td>
+                            </tr>
+
+							`;
+                    }
+
+                }
+                //把根据数据构建的行tr添加到表格中
+                jQuery("#data").html(trs);
+                //=========================
+                //设置页码
+                var nums = rst.navigatepageNums;
+                var nav = `
+										<ul class="pagination">
+											<li class="page-item">
+												<a href="#" class="page-link"
+												onclick="pageUtil(${pageNum-1})">上一页</a>
+											</li>
+							`;
+                //循环读取页码
+                for (var i = 0; i < nums.length; i++) {
+
+                    nav += `
+											<li class="page-item ${pageNum==nums[i]?'active':''}">
+											<a href="#" class="page-link"
+											onclick="pageUtil(${nums[i]})">${nums[i]}</a>
+											</li>
+										`;
+                }
+
+                nav += `               <li class="page-item">
+												<a href="#" class="page-link"
+												onclick="pageUtil(${pageNum+1})">下一页</a>
+											</li>
+			
+										</ul>
+			
+			
+						`;
+                jQuery("#right").html(nav);
+
+            })
+        }
+        //页面加载完后执行init方法
+        jQuery(function() {
+            init();
+
+        })
+    </script>
+
+    <!-- init结束 -->
+
+    <!-- init1开始 -->
+    <script>
+        var pageNum1 = 1;
+        //每页条数
+        var pageSize1 = 3;
+
+        var pages1 = 0;
+
+        function init1() {
+            //其中"pageNum"必须与后台参数同名
+
+            var orderHouseName = jQuery("#name").val();
+            var orderHouseStartTime = jQuery("#datepicker").val();
+            var orderHouseFinishTime = jQuery("#datepicker1").val();
+
+            console.log(orderHouseName);
+            console.log(orderHouseStartTime);
+            console.log(typeof orderHouseStartTime);
+
+            var param = {
+                "pageNum": pageNum1,
+                "pageSize": pageSize1,
+                "orderHouseAdr": orderHouseName,
+                "orderStartTime": orderHouseStartTime,
+                "orderFinishTime": orderHouseFinishTime,
+                "orderSellerPhoneNumber":user.userPhoneNumber
+            };
+            console.log(param);
+            jQuery.post("order/findAll", param, function(rst) {
+                pageNums1 = rst.pages;
+                jQuery("#pages1").html(pageNums1);
+                jQuery("#pageNum1").html(pageNum1);
+                jQuery("#totals1").html(rst.total);
+                //把查询的数据显示到表格的tbody位置
+                //1.获取查询的数据
+                var arrs = rst.list;
+                var trs = '';
+                for (var i = 0; i < arrs.length; i++) {
+                    //获取每一行对应的用户对象
+                    var u = arrs[i];
+                    var datefinish= new Date(u.orderFinishTime.replace(/-/,"/"));
+                    var date=new Date();
+                    var year=date.getFullYear();
+                    var month=date.getMonth()+1;
+                    var date=date.getDate();
+                    var day=(year+"-"+month+"-"+date);
+                    var now=new Date(day.replace(/-/,"/"))
+                    if (datefinish < now) {
+                        u.orderStatus = 1;
+                        update1(u.orderId);
+                    }
+                    //循环一次在页面中产生一行数据
+                    //使用反引号，可以使用模板字符串，用于定义模板
+
+                    trs += `<tr class="${u.orderStatus==1?'table-success':'table-warning'}">
+                                <td>
+                                    <a href="#" onclick="showDeleteDialog1('${u.orderId}')">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </td>
+                                <td>${u.orderId}</td>
+                                <td>${u.orderHouseName}</td>
+                                <td>${u.orderHouseAdr}</td>
+                                <td>${u.orderUserName}</td>
+                                <td>${u.orderUserPhoneNumber}</td>
+                                <td>${u.orderPrice}</td>
+                                <td>${u.orderTime}天</td>
+                                <td>${u.orderStartTime}</td>
+                                <td>${u.orderFinishTime}</td>
+                                <td>${u.orderStatus==1?'订单结束':'订单开始'}</td>
+                                <td><button id="comment" type="button" class="btn btn-info">投诉</button></td>
+                            </tr>
+
+							`;
+                }
+                //把根据数据构建的行tr添加到表格中
+                jQuery("#data1").html(trs);
+                //=========================
+                //设置页码
+                var nums = rst.navigatepageNums;
+                var nav = `
+										<ul class="pagination">
+											<li class="page-item">
+												<a href="#" class="page-link"
+												onclick="pageUtil1(${pageNum1-1})">上一页</a>
+											</li>
+							`;
+                //循环读取页码
+                for (var i = 0; i < nums.length; i++) {
+
+                    nav += `
+											<li class="page-item ${pageNum1==nums[i]?'active':''}">
+											<a href="#" class="page-link"
+											onclick="pageUtil1(${nums[i]})">${nums[i]}</a>
+											</li>
+										`;
+                }
+
+                nav += `               <li class="page-item">
+												<a href="#" class="page-link"
+												onclick="pageUtil1(${pageNum1+1})">下一页</a>
+											</li>
+
+										</ul>
+
+
+						`;
+                jQuery("#right1").html(nav);
+
+            })
+        }
+        //页面加载完后执行init方法
+        jQuery(function() {
+            if(user.userStatus == 1){
+                var info=`                    <h4>出租订单</h4>
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr class="table-primary" id="tablehead1">
+                            <td>删除</td>
+                            <td>订单号</td>
+                            <td>房源名</td>
+                            <td>房源地点</td>
+                            <td>住户</td>
+                            <td>住户手机号</td>
+                            <td>成交金额</td>
+                            <td>房源时长</td>
+                            <td>房源起始时间</td>
+                            <td>房源结束时间</td>
+                            <td>订单状态</td>
+                            <td>操作</td>
+
+                        </tr>
+                        </thead>
+
+                        <tbody id="data1">
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="14">
+                                <div id="page_div1">
+                                    <div id="left1">
+                                        <span id="pageNum1"></span>/<span id="pages1"></span> &nbsp;&nbsp;&nbsp;&nbsp; 共
+                                        <span id="totals1"></span>条
+                                    </div>
+                                    <div id="right1">
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>`;
+                jQuery("#sellerOrderInfo").html(info);
+                init1();
+            }
+
+        })
+    </script>
+
+    <!-- init1开始 -->
+
+
+    <script>
+        //完成分页操作
+        function pageUtil(num) {
+            if (num <= 1) {
+                num = 1;
+            }
+            if (num >= pageNums) {
+                num = pageNums;
+            }
+            pageNum = num;
+            init();
+        }
+    </script>
+
+
+    <script>
+        //完成分页操作1
+        function pageUtil1(num) {
+            if (num <= 1) {
+                num = 1;
+            }
+            if (num >= pageNums1) {
+                num = pageNums1;
+            }
+            pageNum1 = num;
+            init1();
+        }
+    </script>
+
+
+    <!-- 删除方法开始 -->
+    <script>
+        var id;
+
+        function showDeleteDialog(orderId) {
+            id = orderId;
+            //给模态框中的span赋值
+
+            jQuery("#delDialog").modal('show');
+        }
+
+        function showDeleteDialog1(orderId) {
+            id = orderId;
+            //给模态框中的span赋值
+
+            jQuery("#delDialog1").modal('show');
+        }
+
+
+        function doDelete() {
+            jQuery.post("order/delete", {
+                "orderId": id
+            }, function(rst) {
+                jQuery("#delDialog").modal('hide');
+                if (rst > 0) {
+
+                    alert("删除成功");
+                    //删除后显示数据的页码为第一页
+                    pageNum = 1;
+
+                    init();
+                    pageNum1 = 1;
+                    init1();
+
+                } else {
+                    alert("删除失败");
+
+                }
+
+            })
+
+        }
+
+
+
+        function doDelete1() {
+            jQuery.post("order/delete", {
+                "orderId": id
+            }, function(rst) {
+                jQuery("#delDialog1").modal('hide');
+                if (rst > 0) {
+
+                    alert("删除成功");
+                    //删除后显示数据的页码为第一页
+                    pageNum1 = 1;
+
+                    init1();
+                    console.log("zehahahahah");
+                    pageNum = 1;
+                    init();
+
+                } else {
+                    alert("删除失败");
+
+                }
+
+            })
+
+        }
+    </script>
+    <!-- 删除方法结束 -->
+
+
+
+    <!-- 退订方法开始 -->
+    <script>
+        var uId;
+        //修改操作
+        function showEditDialog(orderId,orderStatus) {
+            if(orderStatus==1){
+                alert("订单已结束");
+                return;
+            }
+            uId = orderId;
+            jQuery("#orderId").val(orderId);
+
+            jQuery("#editDialog").modal('show');
+
+        }
+
+        function showEditDialog1(orderId) {
+            uId = orderId;
+            jQuery("#orderId").val(orderId);
+
+            jQuery("#editDialog").modal('show');
+
+        }
+
+        function doEdit() {
+
+            //前提：
+            //1.表单控件必须提供name属性
+            //2.name属性的值必须与后台dto中的属性同名
+
+            jQuery.post("order/update", {
+                "orderId": uId
+            }, function(rst) {
+                if (rst > 0) {
+                    jQuery("#editDialog").modal('hide');
+                    alert("退订成功");
+
+                    init();
+                    init1();
+                } else {
+                    alert("退订失败");
+                }
+            })
+
+        }
+    </script>
+    <!-- 退订方法结束 -->
+
+
+    <!-- 判断日期改status方法开始 -->
+    <script>
+        function update(orderId,orderPrice,userPN) {
+            jQuery.post("user/sellerWallet",{"userWallet":orderPrice,"userPhoneNumber":userPN},function () {
+
+            })
+            //前提：
+            //1.表单控件必须提供name属性
+            //2.name属性的值必须与后台dto中的属性同名
+            jQuery.post("order/update", {
+                "orderId": orderId
+            }, function(rst) {
+                if (rst > 0) {
+                    console.log("success");
+                }
+
+            })
+
+        }
+        function update1(orderId) {
+
+            //前提：
+            //1.表单控件必须提供name属性
+            //2.name属性的值必须与后台dto中的属性同名
+            jQuery.post("order/update", {
+                "orderId": orderId
+            }, function(rst) {
+                if (rst > 0) {
+                    console.log("success");
+                }
+
+            })
+
+        }
+        $('[name="starLevel"]').bind("click",function(){
+            $("#starNum").val($(this)[0].value)
+            var starNum = $(this)[0].value;
+            console.log(starNum);
+            if(starNum == 1) $("#starStr").text("差");
+            if(starNum == 2) $("#starStr").text("一般");
+            if(starNum == 3) $("#starStr").text("优");
+            if(starNum == 4) $("#starStr").text("良");
+            if(starNum == 5) $("#starStr").text("满意");
+        })
+        function showComDialog(houseId,orderId) {
+            jQuery.post("housecom/findAllOrder",{"orderId":orderId},function (rst) {
+                console.log(rst+"1");
+                if(rst!=''){
+                    alert("您已经评价过了！");
+                }
+                else{
+                    jQuery("#houseId").val(houseId);
+                    jQuery("#orderId").val(orderId);
+                    jQuery("#comDialog").modal("show");
+                }
+            })
+
+
+        }
+        function comsave() {
+            var customerEvaluationLevel = jQuery("#starNum").val();
+            if (customerEvaluationLevel == undefined || customerEvaluationLevel == null || customerEvaluationLevel == '') {
+                alert('请将满意度选好再提交哦！');
+                return;
+            }
+            var houseId=jQuery("#houseId").val();
+            var orderId=jQuery("#orderId").val();
+            var houseComInfo=jQuery("#cominfo").val();
+            if(houseComInfo==null||houseComInfo==''){
+                alert("请填写评价内容!");
+                return;
+            }
+            console.log(houseComInfo);
+            var housecom={
+                "houseId":houseId,
+                "houseComUserId":user.userId,
+                "houseComUserName":user.userName,
+                "houseComInfo":houseComInfo,
+                "houseComGrade":customerEvaluationLevel,
+                "orderId":orderId
+            }
+           jQuery.post("housecom/save",housecom,function (rst) {
+               jQuery("#comDialog").modal("hide");
+                if(rst==1){
+                    alert("评价成功");
+                }else{
+                    alert("评价失败");
+                }
+           })
+        }
+        function showComplaintDialog(ReUserName,ReUserPN) {
+            console.log(ReUserName);
+            jQuery("#comReName").val(ReUserName);
+            jQuery("#comRePN").val(ReUserPN);
+            jQuery("#complaintDialog").modal("show");
+        }
+        function doComplaintSave() {
+            var comReName=jQuery("#comReName").val();
+            var comRePN=jQuery("#comRePN").val();
+            var comInfo=jQuery("#complaintinfo").val();
+            var usercomplaint={
+                "userName":user.userName,
+                "userPhoneNumber":user.userPhoneNumber,
+                "userRespondentName":comReName,
+                "userRespondentPhoneNumber":comRePN,
+                "userComplaintInfo":comInfo
+            }
+            jQuery.post("usercomplaint/save",usercomplaint,function (rst) {
+                if(rst==1){
+                    jQuery("#complaintDialog").modal("hide");
+                    alert("投诉成功！等待客服联系您解决问题。")
+                }else{
+                    alert("投诉失败！")
+                }
+            })
+
+        }
+
+
+    </script>
+    <!-- 判断日期改status方法结束 -->
+
+
+
+
+
+
+
+</body>
+
+</html>

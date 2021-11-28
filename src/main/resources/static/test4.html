@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--suppress CssUnusedSymbol, JSUnresolvedLibraryURL -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <title>评价</title>
+
+    <link rel="stylesheet" href="css/star-main.css" media="all" type="text/css"/>
+    <script src="js/jquery-1.12.0.min.js"></script>
+<body>
+<div class="">
+
+
+    <div class="page-header" style="text-align: center;">
+        <h2>开始评价</h2>
+    </div>
+    <form>
+
+        <div class="evalBody">
+
+            <div class="manyidu">
+                <span style="text-align:center; font-size: 1.5rem;line-height: 2.9rem;padding: 1rem;" id="starStr">满意度</span>
+                <div class="panel-body" style="text-align: center; margin-left: 23%;">
+                    <input name="starNum" id="starNum" type="hidden"/>
+                    <div class="starability-container">
+                        <fieldset class="starability-slot">
+                            <input type="radio" id="rate_1_0_1_5" name="starLevel" value="5" />
+                            <label for="rate_1_0_1_5" title="5星"></label>
+                            <input type="radio" id="rate_1_0_1_4" name="starLevel" value="4" />
+                            <label for="rate_1_0_1_4" title="4星"></label>
+                            <input type="radio" id="rate_1_0_1_3" name="starLevel" value="3" />
+                            <label for="rate_1_0_1_3" title="3星"></label>
+                            <input type="radio" id="rate_1_0_1_2" name="starLevel" value="2" />
+                            <label for="rate_1_0_1_2" title="2星"></label>
+                            <input type="radio" id="rate_1_0_1_1" name="starLevel" value="1" />
+                            <label for="rate_1_0_1_1" title="1星"></label>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--备注输入框-->
+            <div class="beizu">
+			   	<textarea class="beizu-text" id="customerEvaluationComment"
+                          name="customerEvaluationComment"
+                          placeholder="写点备注吧..."
+                          class="form-control" rows="16" style=""></textarea>
+            </div>
+
+
+            <!--按钮-->
+            <div class="anniu">
+                <button type="button" class="btn btn-primary btn-lg btn-block"
+                        style="margin-bottom: 0.8rem !important;"
+                        onclick="evaluation();">提交
+                </button>
+
+                <button type="button" class="btn btn-default btn-lg btn-block"
+                        onclick="closed();">关闭</button>
+            </div>
+        </div>
+        <div class="evalDe1"></div>
+        <div class="evalDe2"></div>
+
+    </form>
+</div>
+</body>
+<script src="../utils/conmmonConfig.js"></script>
+<script src="../utils/btwsdk.js"></script>
+<script src="../utils/btwApiUtil.js"></script>
+<script>
+
+
+    $('[name="starLevel"]').bind("click",function(){
+        $("#starNum").val($(this)[0].value)
+        var starNum = $(this)[0].value;
+        console.log(starNum);
+        if(starNum == 1) $("#starStr").text("差");
+        if(starNum == 2) $("#starStr").text("一般");
+        if(starNum == 3) $("#starStr").text("优");
+        if(starNum == 4) $("#starStr").text("良");
+        if(starNum == 5) $("#starStr").text("满意");
+    })
+
+
+    var urlString = window.location.href;
+    //当前会话id
+    var sessionId = urlString.split('?sessionId=')[1];
+
+    // 提交评论
+    function evaluation() {
+        //评价等级
+        var customerEvaluationLevel = $('#starNum').val();
+        console.log(customerEvaluationLevel);
+        return ;
+        if (customerEvaluationLevel == undefined || customerEvaluationLevel == null || customerEvaluationLevel == '') {
+            alert('请将满意度选好再提交哦！');
+            return false;
+        }
+
+    }
+
+    //关闭
+    function closed() {
+        window.close();
+    }
+
+</script>
+
+
+
+<style>
+
+
+    body{
+        background-color: rgba(246, 246, 246, 0.16) !important;
+    }
+
+    /*底部效果*/
+    .evalDe1{
+        border: 1px solid white;
+        height: 0.7rem;
+        width: 70%;
+        margin: 0 auto;
+        z-index: -5;
+        opacity: 0.8;
+        box-shadow: 0px 0px 7px -2px grey;
+        background-color: white;
+    }
+    .evalDe2{
+        border: 1px solid white;
+        height: 0.5rem;
+        width: 60%;
+        margin: 0 auto;
+        z-index: -5;
+        opacity: 0.9;
+        box-shadow: 0px 0px 30px 3px #e2e2e2;
+        background-color: white;
+    }
+    /*按钮颜色*/
+    .btn-block{
+        width: 80% !important;
+        margin: 0 auto !important;
+    }
+    /*满意主体*/
+    .evalBody {
+        width: 29rem;
+        height: 44rem;
+        border: 1px solid white;
+        margin: auto;
+        margin-top: 3rem;
+        box-shadow: 1px 0px 21px -8px grey;
+    }
+    /*满意度*/
+    .manyidu {
+        text-align: center;
+        font-size: 21px;
+        margin-top: 3rem;
+    }
+    /*备注文本*/
+    .beizu-text{
+        font-size: 1.7rem;
+        height: 12rem !important;
+        width: 79%;
+        border: 1px solid #f0eaea;
+        box-shadow: 4px 1px 22px -5px #909090;
+        margin-top: 1rem;
+        margin-left: 3rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        border-radius: 1rem;
+        outline: none;
+        padding: 0.9rem;
+    }
+
+    .page-header{
+        padding-bottom: 1px !important;
+        margin: 18px 0 20px !important;
+    }
+    .submit_btn{
+        width: 100%;
+    }
+    .textarea.form-control{
+        height: 28rem !important;
+    }
+    h3{
+        font-size: 22px;
+    }
+    h2{
+        font-size: 19px;
+    }
+    .panel-body{
+        padding: 8px;
+    }
+</style>
+</html>
+

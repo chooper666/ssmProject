@@ -1,0 +1,75 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Modern an Admin Panel Category Flat Bootstarp Resposive Website Template | Login :: w3layouts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!-- Bootstrap Core CSS -->
+<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+<!-- Custom CSS -->
+<link href="css/style1.css" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css"> 
+<!-- jQuery -->
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+<!---//webfonts--->  
+<!-- Bootstrap Core JavaScript -->
+<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+    <style>
+        /*.btn-success{*/
+        /*    padding: 0px 0px 0px 100px;*/
+        /*}*/
+        #okb {
+            text-align: center;
+        }
+    </style>
+</head>
+<body id="login">
+  <div class="login-logo">
+    <img src="images/logo.png" alt=""/>
+  </div>
+  <h2 class="form-heading">login</h2>
+  <div class="app-cam">
+	  <form id="adminLoginForm">
+		<input type="text" class="text" name="adminName" id="adminName" placeholder="用户名">
+		<input type="password" name="adminPassword" id="adminPassword" placeholder="密码">
+      </form>
+          <div id="okb"><button type="button" class="btn-success" onClick="myFunction()">登录</button></okb>
+
+
+
+  </div>
+   <div class="copy_layout login">
+      <p>Copyright 2021upc暑期东软实训  </p>
+   </div>
+
+<script>
+    function myFunction() {
+        var form=jQuery("#adminLoginForm").serialize();
+        jQuery.post("admin/login",form,function (rst) {
+            //js中非空即真
+            if(rst){
+                //跳转主页面
+                location.href="adminindex.html";
+                //把查询的数据以info作为key存放会话中
+                //如果数据是json对象的话，需要转为
+                //json字符串以后尽心存放
+                sessionStorage.setItem("info",JSON.stringify(rst));
+            }else{
+                alert("登录信息有误!");
+            }
+        })
+
+    }
+</script>
+</body>
+</html>

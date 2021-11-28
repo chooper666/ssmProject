@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Modern an Admin Panel Category Flat Bootstarp Resposive Website Template | Basic_tables :: w3layouts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <!-- jQuery -->
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+    <!---//webfonts--->
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.pagination.css"></link>
+    <script src="js/jquery.pagination.min.js"></script>
+    <style>
+        body {
+            background: #fff;
+        }
+
+        #right{
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div class="bs-example4" data-example-id="contextual-table">
+        <table id="data" class="table table-bordered">
+            <thead style="background: #08F7B2">
+            <tr>
+                <th>用户姓名</th>
+                <th>用户电话</th>
+                <th>被投诉人姓名</th>
+                <th>被投诉人电话</th>
+                <th>投诉信息</th>
+                <th>投诉时间</th>
+            </tr>
+            </thead>
+            <tbody id="tableBd">
+            </tbody>
+
+            <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div id="page_div">
+                        <div id="left">
+                            <span id="pageNum"></span>/<span id="pages"></span> &nbsp;&nbsp;&nbsp;&nbsp; 共
+                            <span id="totals"></span>条
+                        </div>
+                        <div id="right">
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+    <script>
+        var pageNum = 1;
+        //每页条数
+        var pageSize = 3;
+
+
+        //总页数
+        var pages = 0;
+        //从后台获取当前页对应条数的数据
+        function init() {
+            //其中"pageNum"必须与后台参数同名
+            var param = {
+                "pageNum": pageNum,
+                "pageSize": pageSize
+            };
+            console.log(param);
+            jQuery.post("usercomplaint/findAll", param, function(rst) {
+                pageNums = rst.pages;
+                jQuery("#pages").html(pageNums);
+                jQuery("#pageNum").html(pageNum);
+                jQuery("#totals").html(rst.total);
+                //把查询的数据显示到表格的tbody位置
+                //1.获取查询的数据
+                var arrs = rst.list;
+                var trs = '';
+                for (var i = 0; i < arrs.length; i++) {
+                    //获取每一行对应的用户对象
+                    var u = arrs[i];
+                    console.log(u.userComplaintDate);
+                    //循环一次在页面中产生一行数据
+                    //使用反引号，可以使用模板字符串，用于定义模板
+
+                    trs += `<tr class="table-success">
+
+                        <td>${u.userName}</td>
+                        <td>${u.userPhoneNumber}</td>
+                        <td>${u.userRespondentName}</td>
+                        <td>${u.userRespondentPhoneNumber}</td>
+                        <td>${u.userComplaintInfo}</td>
+
+                        <td>${u.userComplaintDate}</td>
+                    </tr>
+
+                    `;
+                }
+                //把根据数据构建的行tr添加到表格中
+                jQuery("#tableBd").html(trs);
+                //=========================
+                //设置页码
+                var nums = rst.navigatepageNums;
+                var nav = `
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a href="#" class="page-link"
+                                        onclick="pageUtil(${pageNum-1})">上一页</a>
+                                    </li>
+                    `;
+                //循环读取页码
+                for (var i = 0; i < nums.length; i++) {
+
+                    nav += `
+                                    <li class="page-item ${pageNum==nums[i]?'active':''}">
+                                    <a href="#" class="page-link"
+                                    onclick="pageUtil(${nums[i]})">${nums[i]}</a>
+                                    </li>
+                                `;
+                }
+
+                nav += `               <li class="page-item">
+                                        <a href="#" class="page-link"
+                                        onclick="pageUtil(${pageNum+1})">下一页</a>
+                                    </li>
+
+                                </ul>
+
+
+                `;
+                jQuery("#right").html(nav);
+
+            })
+        }
+        //页面加载完后执行init方法
+        jQuery(function() {
+            init();
+        })
+
+
+    </script>
+
+    <script>
+        //完成分页操作
+        function pageUtil(num) {
+            if (num <= 1) {
+                num = 1;
+            }
+            if (num >= pageNums) {
+                num = pageNums;
+            }
+            pageNum = num;
+            init();
+        }
+    </script>
+</div>
+</body>
+</html>

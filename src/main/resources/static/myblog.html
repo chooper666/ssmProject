@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <link href='#css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- Custom Theme files -->
+    <script src="jquery/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+</head>
+<body>
+<iframe name="frame" src="top.html" frameborder="0"  width="100%" height="145.5px" style="display: flex" ></iframe>
+<!--- banner-1 ---->
+<div class="banner-1">
+    <div class="container">
+        <h1 class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">生  &nbsp; 活 &nbsp;  与&nbsp;   美&nbsp;   好   &nbsp;尽   &nbsp;在   &nbsp;这 &nbsp;  里</h1>
+    </div>
+</div>
+<!--- /banner-1 ---->
+<!--- blog ---->
+<div class="blog">
+    <div class="container">
+        <div class="col-md-9 blog-left">
+            <div id="blogdata">
+            </div>
+            <nav>
+                <ul id="blogpage" class="pagination paging animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-3 blog-right">
+            <div class="subscribe animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+                <button type="button"  onclick="location.href='publishblog.html'" target="_top">发布博客</button>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<!--- /blog ---->
+<!--- footer-top ---->
+<!--- /footer-top ---->
+<!---copy-right ---->
+<div class="copy-right">
+    <div class="container">
+
+        <div class="footer-social-icons wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+            <ul>
+                <li><a class="facebook" href="#"><span>Facebook</span></a></li>
+                <li><a class="twitter" href="#"><span>Twitter</span></a></li>
+                <li><a class="flickr" href="#"><span>Flickr</span></a></li>
+                <li><a class="googleplus" href="#"><span>Google+</span></a></li>
+                <li><a class="dribbble" href="#"><span>Dribbble</span></a></li>
+            </ul>
+        </div>
+        <p class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">© 2016 Green Wheels . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+    </div>
+</div>
+<!--- /copy-right ---->
+
+<script>
+    var str=sessionStorage.getItem("info");
+    var user=JSON.parse(str);
+    var pageNum=1;
+    var pageSize=3;
+    var pageNums=0;
+    function init() {
+        var param={
+            "pageNum":pageNum,
+            "pageSize":pageSize,
+            "blogPublisherId":user.userId
+        };
+        jQuery.post("blogmsg/findAll",param,function (rst) {
+            console.log(rst);
+            pageNums=rst.pages;
+            var arrs=rst.list;
+            var trs='';
+            console.log(arrs.length)
+            for(var i=0;i<arrs.length;i++){
+                var u=arrs[i];
+                trs+=`<div class="comments-list hover14 column animated wow fadeInUp animated animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+<h3><a href="single1.html" target="_top">${u.blogTitle}</a></h3>
+<span><a href="#" onclick="deleteblogDialog(${u.blogId})">删除博客</a></span>
+<ul>
+
+<li><a href="#"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>时间：${u.blogDate}</a><i>|</i></li>
+<li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>${u.blogPublisherName}</a></li>
+</ul>
+<div>
+<figure><a href="single1.html"><img style="width: 800px;height: 350px" src="images/${u.blogImg}" alt=" " class="img-responsive"></a></figure>
+</div>
+<p>内容：${u.blogInfo}</p>
+<div class="more">
+<a href="#" onclick="update(${u.blogId})" >修改博客</a>|
+<a href="#" onclick="blog(${u.blogId})" >查看详情页面</a>
+</div>
+</div>`;
+            }
+
+            //var c=document.getElementById("houseData");
+            //c.innerHTML+=trs;
+            jQuery("#blogdata").html(trs);
+            var nums=rst.navigatepageNums;
+            var nav=`<li>
+<a href="#" aria-label="Previous" onclick="pageUtil(${pageNum-1})">
+<span aria-hidden="true">«</span>
+</a>
+</li>`;
+            for(var i=0;i<nums.length;i++){
+                nav+=`<li class="page-item ${pageNum==nums[i]?'active':''}"><a href="#" onclick="pageUtil(${nums[i]})">${nums[i]}</a></li>`;
+            }
+            nav+=`<li>
+<a href="#" aria-label="Next" onclick="pageUtil(${pageNum+1})">
+<span aria-hidden="true">»</span>
+</a>
+</li>`;
+            jQuery("#blogpage").html(nav);
+
+        })
+
+    }
+    jQuery(function () {
+        init();
+    })
+    function pageUtil(num) {
+        if(num<=1){
+            num=1;
+        }
+        if(num>=pageNums){
+            num=pageNums;
+        }
+        pageNum=num;
+        init();
+
+    }
+    function deleteblogDialog(blogId) {
+        jQuery("#blogId").val(blogId);
+        jQuery("#delDialog1").modal('show');
+    }
+    function doDelete1() {
+        var blogId=jQuery("#blogId").val();
+        jQuery.post("blogmsg/delete",{"blogId":blogId},function (rst) {
+            if(rst==1){
+                jQuery("#delDialog1").modal('hide');
+                alert("删除成功")
+                pageNum=1;
+                init();
+            }else{
+                alert("删除失败")
+            }
+        })
+    }
+    function update(blogId) {
+        jQuery.post("blogmsg/findById",{"blogId":blogId},function (rst) {
+            sessionStorage.setItem("blogInfo",JSON.stringify(rst));
+            location.href="updateblog.html";
+
+        })
+
+    }
+    function blog(blogId) {
+        location.href="single1.html";
+        sessionStorage.setItem("blogInfo",blogId);
+    }
+</script>
+<!-- 删除模态框1 -->
+<div class="modal fade" id="delDialog1" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">提示</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="blogId" type="hidden">
+                <p>您确定要删除吗？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="doDelete1()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 删除模态框1结束 -->
+</body>
+</html>

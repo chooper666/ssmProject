@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <link href='#css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- Custom Theme files -->
+    <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+</head>
+<body>
+<iframe name="frame" src="top.html" frameborder="0"  width="100%" height="145.5px" style="display: flex" ></iframe>
+<!--- banner-1 ---->
+<div class="banner-1">
+    <div class="container">
+        <h1 class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">生  &nbsp; 活 &nbsp;  与&nbsp;   美&nbsp;   好   &nbsp;尽   &nbsp;在   &nbsp;这 &nbsp;  里</h1>
+    </div>
+</div>
+<!--- /banner-1 ---->
+<!--- blog ---->
+<div class="blog">
+    <div class="container">
+
+        <div class="col-md-11 blog-left">
+            <div id="houseData">
+
+            </div>
+            <nav>
+                <ul id="housePage" class="pagination paging animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+
+                </ul>
+            </nav>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<!--- /blog ---->
+<!--- footer-top ---->
+<!--- /footer-top ---->
+<!---copy-right ---->
+<div class="copy-right">
+    <div class="container">
+
+        <div class="footer-social-icons wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+            <ul>
+                <li><a class="facebook" href="#"><span>Facebook</span></a></li>
+                <li><a class="twitter" href="#"><span>Twitter</span></a></li>
+                <li><a class="flickr" href="#"><span>Flickr</span></a></li>
+                <li><a class="googleplus" href="#"><span>Google+</span></a></li>
+                <li><a class="dribbble" href="#"><span>Dribbble</span></a></li>
+            </ul>
+        </div>
+        <p class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">© 2016 Green Wheels . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+    </div>
+</div>
+<!--- /copy-right ---->
+
+<script>
+    var str=sessionStorage.getItem("info");
+    var user=JSON.parse(str);
+    var userId=user.userId;
+    var pageNum=1;
+    var pageSize=5;
+    var pageNums=0;
+
+    function init() {
+       // var houseAdr=jQuery("#name").val();
+        var param={
+            "pageNum":pageNum,
+            "pageSize":pageSize,
+            "houseSellerId":user.userId
+        };
+        jQuery.post("housemsg/userfindAll",param,function (rst) {
+            console.log("Id:"+rst.pages);
+            pageNums=rst.pages;
+            var arrs=rst.list;
+            var trs='';
+            console.log(arrs.length)
+            for(var i=0;i<arrs.length;i++){
+
+                var u=arrs[i];console.log(u.houseGuest);
+                trs+=`
+\t\t<div class="details-top">
+\t\t\t<div class="col-md-3 details-left wow fadeInLeft animated" data-wow-delay=".5s">
+\t\t\t\t<img style="width: 300px;height: 130px"src="images/${u.houseImg}" class="img-responsive" alt="">
+\t\t\t</div>
+\t\t\t<div class="col-md-6 details-middle wow fadeInUp animated" data-wow-delay=".5s">
+\t\t\t\t<h3><a href="#">${u.houseName} (${u.houseStatus==1?'审核通过':'待审核'})</a></h3>
+<li><a href="#" onclick="houseLocation('${u.houseAdr}')"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>${u.houseAdr}</a><i>|</i></li>
+\t\t\t\t<li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>容纳人数：${u.houseGuest}</a></li>
+\t\t\t\t<div class="clearfix"></div>
+\t\t\t</div>
+\t\t\t<div class="col-md-3 details-right wow fadeInRight animated" data-wow-delay=".5s">
+\t\t\t\t<h5>￥${u.housePrice}(一晚)</h5>
+\t\t\t\t<a href="#" onclick="updateDialog(${u.houseId})" target="_top" class="view">更改信息</a>
+<a href="#" onclick="deletehouseDialog(${u.houseId})"target="_top" class="view">删除房源</a>
+\t\t\t</div>
+\t\t\t\t<div class="clearfix"></div>
+\t\t</div>`;
+            }
+
+            //var c=document.getElementById("houseData");
+            //c.innerHTML+=trs;
+            jQuery("#houseData").html(trs);
+            var nums=rst.navigatepageNums;
+            var nav=`<li>
+<a href="#" aria-label="Previous" onclick="pageUtil(${pageNum-1})">
+<span aria-hidden="true">«</span>
+</a>
+</li>`;
+            for(var i=0;i<nums.length;i++){
+                nav+=`<li class="page-item ${pageNum==nums[i]?'active':''}"><a href="#" onclick="pageUtil(${nums[i]})">${nums[i]}</a></li>`;
+            }
+            nav+=`<li>
+<a href="#" aria-label="Next" onclick="pageUtil(${pageNum+1})">
+<span aria-hidden="true">»</span>
+</a>
+</li>`;
+            jQuery("#housePage").html(nav);
+
+        })
+
+    }
+    function houseLocation(location){
+        window.open('Map.html?'+'location=' + encodeURI(location));
+    }
+    jQuery(function () {
+        init();
+    })
+    function pageUtil(num) {
+        if(num<=1){
+            num=1;
+        }
+        if(num>=pageNums){
+            num=pageNums;
+        }
+        pageNum=num;
+        init();
+
+    }
+    function deletehouseDialog(houseId) {
+        jQuery("#delDialog1").modal("show");
+        jQuery("#houseId").val(houseId);
+    }
+    function doDelete1() {
+        var houseId=jQuery("#houseId").val();
+        jQuery.post("housemsg/delete",{"houseId":houseId},function(rst){
+            if(rst==1){
+                alert("删除成功");
+                jQuery("#delDialog1").modal("hide");
+                pageNum=1;
+                init();
+            }
+        })
+    }
+    function updateDialog(houseId) {
+        jQuery.post("housemsg/findById",{"houseId":houseId},function (rst) {
+            sessionStorage.setItem("houseinfo",JSON.stringify(rst));
+            location.href="updatehouse.html";
+
+        })
+    }
+</script>
+<!-- 删除模态框1 -->
+<div class="modal fade" id="delDialog1" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">提示</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="houseId" type="hidden">
+                <p>您确定要删除吗？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="doDelete1()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 删除模态框1结束 -->
+</body>
+</html>

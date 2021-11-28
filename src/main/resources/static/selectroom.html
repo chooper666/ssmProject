@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Selectroom</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link href='#css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+<link href='#css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+<link href='#css?family=Oswald' rel='stylesheet' type='text/css'>
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- Custom Theme files -->
+<script src="js/jquery-1.12.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/wow.min.js"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+</head>
+<body>
+<iframe name="frame" src="top.html" frameborder="0"  width="100%" height="145.5px" style="display: flex" ></iframe>
+
+<!--- banner ---->
+<div class="banner-3">
+	<div class="container">
+		<h1 class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">生  &nbsp; 活 &nbsp;  与&nbsp;   美&nbsp;   好   &nbsp;尽   &nbsp;在   &nbsp;这 &nbsp;  里</h1>
+	</div>
+</div>
+
+<!--- /banner ---->
+<!--- selectroom ---->
+<div class="selectroom">
+	<div id="houseOrder" class="container">
+
+
+
+	</div>
+	<div style="text-align: center;">
+		<div class="subscribe animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+			<button style="width: 150px;" type="button"  onclick="orderMsg()">确认下单</button>
+		</div>
+	</div>
+</div>
+<!--- /selectroom ---->
+<!--- footer-top ---->
+<!--- /footer-top ---->
+<!---copy-right ---->
+<div class="copy-right">
+	<div class="container">
+	
+		<div class="footer-social-icons wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+			<ul>
+				<li><a class="facebook" href="#"><span>Facebook</span></a></li>
+				<li><a class="twitter" href="#"><span>Twitter</span></a></li>
+				<li><a class="flickr" href="#"><span>Flickr</span></a></li>
+				<li><a class="googleplus" href="#"><span>Google+</span></a></li>
+				<li><a class="dribbble" href="#"><span>Dribbble</span></a></li>
+			</ul>
+		</div>
+		<p class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">© 2016 Green Wheels . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+	</div>
+</div>
+<!--- /copy-right ---->
+<script>
+	var str=sessionStorage.getItem("houseinfo");
+	var str1=sessionStorage.getItem("info");
+	var user=JSON.parse(str1);
+	var houseinfo=JSON.parse(str);
+	var houseId=houseinfo.houseId;
+	var startTime=houseinfo.orderStartTime;
+	var finishTime=houseinfo.orderFinishTime;
+	var datestart= new Date(startTime.replace(/-/,"/"));
+	var datefinish  = new Date(finishTime.replace(/-/,"/"));
+	var dateTime;
+	if(datestart==datefinish){
+		dateTime=1
+	}
+	dateTime=(datefinish - datestart)/(1*24*60*60*1000);
+	var price;
+	function init() {
+		var date=new Date();
+		var year=date.getFullYear();
+		var month=date.getMonth()+1;
+		var date=date.getDate();
+		var day=(year+"-"+month+"-"+date);
+		//console.log(day);
+		jQuery.post("housemsg/findById",{"houseId":houseId},function (rst){
+			price=Number(dateTime)*Number(rst.housePrice);
+			var trs='';
+			trs+=`\t\t<div class="selectroom_top">
+\t\t\t<div class="col-md-4 selectroom_left wow fadeInLeft animated" data-wow-delay=".5s">
+\t\t\t\t<img src="images/${rst.houseImg}" class="img-responsive" alt="">
+\t\t\t</div>
+\t\t\t<div class="col-md-8 selectroom_right wow fadeInRight animated" data-wow-delay=".5s">
+\t\t\t\t<h2>${rst.houseName}</h2>
+\t\t\t\t<p class="dow">${rst.houseAdr}</p>
+\t\t\t\t<p><span>1 Rooms| </span> 请确认你的订单信息</span><a href="#"> 预定政策</a></p>
+\t\t\t\t\t<ul>
+\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t<h6>入住时间</h6>
+\t\t\t\t\t\t\t<h4>${startTime}</h4>
+\t\t\t\t\t\t\t<h6>12:00 点</h6>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t<h6>离开时间</h6>
+<h4>${finishTime}</h4>
+\t\t\t\t\t\t\t<h6>12:00 点</h6>
+\t\t\t\t\t\t</li>
+\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t<h6>&nbsp;&nbsp;&nbsp;容纳</h6>
+\t\t\t\t\t\t\t<h4>&nbsp;&nbsp;&nbsp;${rst.houseGuest}人</h4>
+\t\t\t\t\t\t</li>
+<li>
+<h6>入住天数</h6>
+<h4>${dateTime}天</h4>
+</li>
+\t\t\t\t\t</ul>
+\t\t\t\t\t\t<div class="clearfix"></div>
+\t\t\t\t<div class="grand">
+\t\t\t\t\t<p>总金额</p>
+\t\t\t\t\t<h3>${price}</h3>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t\t<div class="clearfix"></div>
+\t\t</div>`;
+			jQuery("#houseOrder").html(trs);
+		})
+	}
+	jQuery(function () {
+		init();
+	})
+function orderMsg() {
+		console.log(price);
+		if(user.userWallet<price){
+			alert("您的钱包余额不足请充值！")
+			return;
+		}
+	jQuery.post("housemsg/findById",{"houseId":houseId},function (rst) {
+		console.log("Id:"+rst.houseSellerPhoneNumber);
+		var ordermsg={
+			"houseId":houseId,
+			"orderUserName":user.userName,
+			"orderUserPhoneNumber":user.userPhoneNumber,
+			"orderHouseName":rst.houseName,
+			"orderHouseAdr":rst.houseAdr,
+			"orderHouseSellerName":rst.houseSellerName,
+			"orderSellerPhoneNumber":rst.houseSellerPhoneNumber,
+			"orderPrice":price,
+			"orderTime":dateTime,
+			"orderStartTime":startTime,
+			"orderFinishTime":finishTime
+		}
+		jQuery.post("order/save",ordermsg,function (rst) {
+			update(price);
+			if(rst==1){
+				alert("预定成功")
+				location.href="house.html";
+			}
+			else{
+				alert("抱歉，预定失败")
+			}
+		})
+	})
+}
+function update(price) {
+		user.userWallet=price;
+	jQuery.post("user/updateconsum",user,function (rst) {
+		if(rst==1){
+			console.log("扣款成功")
+		}
+	})
+}
+
+</script>
+</body>
+</html>

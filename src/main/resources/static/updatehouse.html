@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Agent Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <link href='#css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- Custom Theme files -->
+    <script src="jquery/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <style>
+        .up_add {
+            width: 100px;
+            height: 100px;
+            opacity: 0;
+        }
+
+        .up_add_bg {
+            width: 120px;
+            height: 45px;
+            border-radius: 10px;
+            background-image: url(images/upload.png);
+        }
+
+        #preview {
+            border: 1px solid #ccc;
+            width: 470px;
+            height: 340px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+    </style>
+</head>
+
+<body>
+
+<iframe name="frame" src="top.html" frameborder="0"  width="100%" height="145.5px" style="display: flex" ></iframe>
+<div class="banner-1">
+    <div class="container">
+        <h1 class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">生  &nbsp; 活 &nbsp;  与&nbsp;   美&nbsp;   好   &nbsp;尽   &nbsp;在   &nbsp;这 &nbsp;  里</h1>
+    </div>
+</div>
+
+<!--- publishHome ---->
+<div class="agent">
+    <div class="container">
+        <form id="publishHouseForm">
+            <div class="col-md-6 agent-left wow fadeInDown animated" data-wow-delay=".5s">
+                <input name="houseName" id="houseName" type="text" placeholder="房源名字">
+                <input name="houseAdr" id="houseAdr" type="text" placeholder="房源地址">
+                <input name="housePrice" id="housePrice" type="text" placeholder="房源单日价格">
+                <select name="houseGuest" id="houseGuest" class="grayTextNormal">
+                    <option value="1">一人</option>
+                    <option value="2">两人</option>
+                    <option value="3">三人</option>
+                    <option value="3+">三人以上</option>
+                </select>
+                <textarea name="houseInfo" id="houseInfo" placeholder="房源信息"></textarea>
+                <div class="sub">
+                    <button id="publishHome" type="button" class="btn btn-success btn-lg">发布</button>
+                </div>
+            </div>
+            <div class="col-md-6 agent-right wow fadeInUp animated" data-wow-delay=".5s">
+                <div id="file_div" class="up_add_bg">
+                    <input class="up_add" type="file" id="file" name="file" onchange="imgPreview(this)">
+                </div>
+                <div>
+                    <img id="preview" />
+                </div>
+            </div>
+        </form>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--- /publishHome ---->
+<!--- footer-top ---->
+<!--- /footer-top ---->
+<!---copy-right ---->
+<div class="copy-right">
+    <div class="container">
+
+        <div class="footer-social-icons wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+            <ul>
+                <li><a class="facebook" href="#"><span>Facebook</span></a></li>
+                <li><a class="twitter" href="#"><span>Twitter</span></a></li>
+                <li><a class="flickr" href="#"><span>Flickr</span></a></li>
+                <li><a class="googleplus" href="#"><span>Google+</span></a></li>
+                <li><a class="dribbble" href="#"><span>Dribbble</span></a></li>
+            </ul>
+        </div>
+        <p class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">© 2016 Green Wheels . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+    </div>
+</div>
+<!--- /copy-right ---->
+
+
+<script type="text/javascript">
+    var str=sessionStorage.getItem("houseinfo");
+    var housemsg=JSON.parse(str);
+    jQuery("#houseName").val(housemsg.houseName);
+    jQuery("#houseAdr").val(housemsg.houseAdr);
+    jQuery("#housePrice").val(housemsg.housePrice);
+    jQuery("#houseInfo").val(housemsg.houseInfo);
+    var images=("images/"+housemsg.houseImg);
+    var img = document.getElementById("preview");
+    img.src=images;
+    function imgPreview(fileDom) {
+        //判断是否支持FileReader
+        if (window.FileReader) {
+            var reader = new FileReader();
+        } else {
+            alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+        }
+        //获取文件
+        var file = fileDom.files[0];
+        var imageType = /^image\//;
+        //是否是图片
+        if (!imageType.test(file.type)) {
+            alert("请选择图片！");
+            return;
+        }
+        //读取完成
+        reader.onload = function(e) {
+            //获取图片dom
+            var img = document.getElementById("preview");
+
+            //图片路径设置为读取的图片
+            img.src = e.target.result;
+
+        };
+
+        reader.readAsDataURL(file);
+    }
+</script>
+
+
+<script>
+
+    jQuery("#publishHome").click(function () {
+        if(("file",jQuery("#file")[0].files[0])==null || ("file",jQuery("#file")[0].files[0])==''){
+            update1();console.log("sahdas")
+        }
+        else{
+            update2();
+        }
+    })
+    function update1(){
+
+        var param=new FormData(jQuery("#publishHouseForm")[0]);
+        param.append("houseId",housemsg.houseId);
+        jQuery.ajax({
+            url:'housemsg/update1',
+            method:'POST',
+            data:param,
+            dataType:'json',
+            contentType:false,
+            processData:false,
+            success:function (rst) {
+                console.log(rst);
+                alert("更新成功");
+                location.href="myhouse.html";
+            }
+        })
+    }
+    function update2(){
+        var param=new FormData(jQuery("#blogForm")[0]);
+        param.append("file",jQuery("#file")[0].files[0]);
+        param.append("houseId",housemsg.houseId);
+        jQuery.ajax({
+            url:'housemsg/update2',
+            method:'POST',
+            data:param,
+            dataType:'json',
+            contentType:false,
+            processData:false,
+            success:function (rst) {
+                console.log(rst);
+                alert("更新成功");
+                location.href="myhouse.html";
+
+            }
+        })
+
+    }
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WeChat">
+    <meta name="author" content="SongZehao">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeChat</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- jQuery  -->
+    <script src="js/jquery.min.js"></script>
+    <!-- myself -->
+    <script src="js/myself.js?v=20200313"></script>
+
+    <!-- 百度统计 -->
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?493c10a258b3e0f99e3903b0e23b5ab2";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <style>
+        html *{
+            padding: 5px;
+        }
+        .userlist{
+            width: 30%;
+            float: left;
+        }
+        .chatarea{
+            width: 70%;
+            float: right;
+            background-color: gray;
+            display: none;
+        }
+        .userRow{
+            padding-left: 20px;
+            background-color: #abc;
+            border: 1px solid #777;
+        }
+        .toFriendDiv{
+            background-color: #888;
+        }
+        .activeFriend{
+            background-color: #FF0;
+        }
+    </style>
+</head>
+
+<body>
+<div class="userlist">
+    <div class="curAccountWarapper">
+        <div><b>当前账号：</b></div>
+        <div class="curAccount"></div>
+    </div>
+    <div class="friendlistWrapper">
+        <div><b>好友列表：</b></div>
+        <div class="friendlist"></div>
+    </div>
+</div>
+<div class="chatarea">
+    <div class="toFriendDiv">与<span class="toFriend"></span>对话中：</div>
+    <textarea class="msgarea form-control"></textarea><br>
+    <button type="button" onclick="sendMsg()" class="btn btn-info waves-effect waves-light">发送</button>
+    <div class="msghisDiv"></div>
+</div>
+
+<script type="text/javascript">
+    var socket;
+    var currentUser;
+    window["userArr"] = [];
+    //心跳检测
+    var heartCheck = {
+        timeout: 30000,
+        timeoutObj: null,
+        serverTimeoutObj: null,
+        start: function() {
+            console.log('start heartCheck');
+            var self = this;
+            this.timeoutObj && clearTimeout(this.timeoutObj);
+            this.serverTimeoutObj && clearTimeout(this.serverTimeoutObj);
+            this.timeoutObj = setTimeout(function() {
+                console.log('heartCheck doing...');
+                //发送测试信息，后端收到后，返回一个消息，
+                let data = {};
+                data["type"] = "heartbeat";
+                data["fromId"] = id;
+                data["message"] = "心跳检测: " + data["fromId"];
+                socket.send(JSON.stringify(data));
+                self.serverTimeoutObj = setTimeout(function() {
+                    socket.close();
+                }, self.timeout);
+            }, this.timeout);
+        }
+    };
+    function openSocket() {
+        if (typeof(WebSocket) == "undefined") {
+            console.log("您的浏览器不支持WebSocket");
+        } else {
+            console.log("您的浏览器支持WebSocket");
+            //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
+            var curId = $(".curAccount").attr("id");
+            var socketUrl = window.location.origin.replace("https","ws").replace("http","ws") +"/hotel"+ "/test?fromId=" + curId;
+            console.log(socketUrl);
+            if (socket != null) {
+                socket.close();
+                socket = null;
+            }
+            socket = new WebSocket(socketUrl);
+            //打开事件
+            socket.onopen = function() {
+                console.log("websocket已打开");
+                //socket.send("这是来自客户端的消息" + location.href + new Date());
+                //心跳检测重置
+                heartCheck.start();
+            };
+            //获得消息事件
+            socket.onmessage = function(event) {
+                // 发现消息进入    开始处理前端触发逻辑
+                // console.log(event);
+                //拿到任何消息都说明当前连接是正常的,心跳续签
+                heartCheck.start();
+                let dataStr = event.data;
+                let data = JSON.parse(dataStr);
+                // 若是收到自身的心跳消息，只打印日志
+                let type = data["type"];
+                if (type == "heartbeat") {
+                    console.log("收到心跳回复!");
+                } else {
+                    let fromId = data["fromId"];
+                    let message = data["message"];
+                    let state = data["state"];
+                    $(".msghisDiv div[class^=his_]").hide();
+                    if ($(".msghisDiv .his_" + fromId).length == 0) {
+                        $(".msghisDiv").append('<div class="his_' + fromId + '"></div>');
+                    }
+                    $(".msghisDiv .his_" + fromId).append('<div><b>收到：</b>' + formatTime(new Date(), 'yyyy-MM-dd HH:mm:ss') + '<br>' + message + '<div>');
+                    $(".msghisDiv .his_" + fromId).show();
+                    $(".userRow").removeClass("activeFriend");
+                    $(".userRow[data-id=" + fromId + "]").addClass("activeFriend");
+                    var fromUser = window["userArr"].filter(function(u) {
+                        if (u.id == fromId) {
+                            return true;
+                        }
+                    })[0];
+                    let username = fromUser["username"];
+                    let account = fromUser["account"];
+                    $(".toFriend").text(username + account);
+                    if (state == "fail") {
+                        $(".toFriend").attr("toId", data["toId"]);
+                    } else {
+                        $(".toFriend").attr("toId", fromId);
+                        notifyNewMsg(fromId, message);
+                    }
+                    $(".chatarea").show();
+                }
+            };
+            //关闭事件
+            socket.onclose = function(event) {
+                console.log(event);
+                console.log("websocket已关闭");
+            };
+            //发生了错误事件
+            socket.onerror = function() {
+                console.log("websocket发生了错误");
+            }
+        }
+    }
+    // 获取当前登录用户信息
+    var str=sessionStorage.getItem("info");
+    var user=JSON.parse(str);
+
+
+    $(".curAccount").empty();
+    let id = user.userId;
+    let username = user.userName;
+    let account = user.userPhoneNumber;
+    $(".curAccount").text(username + "(" + account + ")");
+    $(".curAccount").attr("id", id);
+    jQuery(function () {
+        showAllUsers();
+        openSocket();
+    })
+
+
+    function showAllUsers() {
+        // 获取所有用户信息
+
+        var users={
+            "id":'admin',
+            "username":"客服",
+            "account":"1"
+        }
+        console.log(users);
+        window["userArr"] = users;
+
+
+        let id = users.id;
+        let username = users.username;
+        let account = users.account;
+        $(".friendlist").append('<div class="userRow form-control" data-id="' + id + '"><span>' + username + '</span><span>(' + account + ')</span></div>');
+
+
+        $(".userRow").on("dblclick", function(e) {
+            let node = $(e.target)[0];
+            $(".msgarea").val("");
+            // 期待双击div.userRow,但实际上有可能双击了它的2个span子节点,所以需获取到div.userRow
+            let targetNode = null;
+            if ($(node).hasClass("userRow")) {
+                targetNode = $(node);
+            } else {
+                targetNode = $(node).parent();
+            }
+            $(".userRow").removeClass("activeFriend");
+            targetNode.addClass("activeFriend");
+            let id = targetNode.attr("data-id");
+            let username = targetNode.children("span:eq(0)").text();
+            let account = targetNode.children("span:eq(1)").text();
+            $(".toFriend").text(username + account);
+            $(".toFriend").attr("toId", id);
+            $(".chatarea").show();
+            $(".msghisDiv div[class^=his_]").hide();
+            if ($(".msghisDiv .his_" + id).length == 0) {
+                $(".msghisDiv").append('<div class="his_' + id + '"></div>');
+            }
+            $(".msghisDiv .his_" + id).show();
+            $(".userRow[data-id=" + id + "]").addClass("activeFriend");
+        });
+
+    }
+    function sendMsg() {
+        if (typeof(WebSocket) == "undefined") {
+            console.log("您的浏览器不支持WebSocket");
+        } else {
+            console.log("您的浏览器支持WebSocket");
+            let toId = $(".userRow.activeFriend").attr("data-id");
+            let msg = $(".msgarea").val();
+            console.log(toId + "->" + msg);
+            let data = {};
+            data["fromId"] = $(".curAccount").attr("id");
+            data["toId"] = toId;
+            data["message"] = msg;
+            console.log(JSON.stringify(data));
+            $(".msghisDiv .his_" + toId).append('<div><b>发送：</b>' + formatTime(new Date(), 'yyyy-MM-dd HH:mm:ss') + '<br>' + msg + '</div>');
+            socket.send(JSON.stringify(data));
+        }
+    }
+</script>
+
+</body>
+</html>

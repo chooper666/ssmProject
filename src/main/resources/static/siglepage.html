@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Singlepage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link href='#css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+<link href='#css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+<link href='#css?family=Oswald' rel='stylesheet' type='text/css'>
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- Custom Theme files -->
+<script src="jquery/jquery-3.6.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/wow.min.js"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+</head>
+<body>
+<iframe name="frame" src="top.html" frameborder="0"  width="100%" height="145.5px" style="display: flex" ></iframe>
+<!--- rooms ---->
+<div class="rooms">
+	<div id="rooms">
+
+	</div>
+	<div class="recent-comments">
+		<h3>最近评论</span></h3>
+		<div id="housecom"class="recent-comments-grids">
+
+		</div>
+	</div>
+	<nav>
+		<ul id="housecomPage" class="pagination paging animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+
+		</ul>
+	</nav>
+</div>
+
+<!--- /rooms ---->
+<!--- footer-top ---->
+<!--- /footer-top ---->
+<!---copy-right ---->
+<div class="copy-right">
+	<div class="container">
+	
+		<div class="footer-social-icons wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+			<ul>
+				<li><a class="facebook" href="#"><span>Facebook</span></a></li>
+				<li><a class="twitter" href="#"><span>Twitter</span></a></li>
+				<li><a class="flickr" href="#"><span>Flickr</span></a></li>
+				<li><a class="googleplus" href="#"><span>Google+</span></a></li>
+				<li><a class="dribbble" href="#"><span>Dribbble</span></a></li>
+			</ul>
+		</div>
+		<p class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">© 2016 Green Wheels . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+	</div>
+</div>
+<!--- /copy-right ---->
+<script>
+	var pageNum=1;
+	var pageSize=3;
+	var pageNums=0;
+	var str=sessionStorage.getItem("houseinfo");
+	var houseinfo=JSON.parse(str);
+	var houseId=houseinfo.houseId;
+	console.log(houseId);
+	function init() {
+		jQuery.post("housemsg/findById",{"houseId":houseId},function (rst) {
+			var trs='';
+			trs+=`\t<div class="container">
+\t\t<div class="rooms-top" style=" background: url(images/${rst.houseImg})no-repeat;
+background-size: 1140px 390px">
+\t\t\t<div class="rom-info">
+\t\t\t\t<div class="rt-left wow fadeInLeft animated" data-wow-delay=".5s">
+\t\t\t\t\t<h3>${rst.houseName}</h3>
+\t\t\t\t\t<p>房主名字：${rst.houseSellerName} | 房主电话：${rst.houseSellerPhoneNumber}</p>
+\t\t\t\t</div>
+\t\t\t\t<div class="rt-right wow fadeInRight animated" data-wow-delay=".5s">
+\t\t\t\t\t<h5>￥${rst.housePrice}(一晚)</h5>
+\t\t\t\t\t<a href="selectroom.html" target="_top" class="view">预定</a>
+\t\t\t\t</div>
+\t\t\t\t<div class="clearfix"></div>
+\t\t\t</div>
+\t\t</div>
+<div class="hotel-police wow fadeInLeft animated" data-wow-delay=".5s">
+<h4 class="sing">房源详细信息</h4>
+\t\t\t<div class="details-middle wow fadeInUp animated" data-wow-delay=".5s">
+<li><a href="#" onclick="houseLocation('${rst.houseAdr}')"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>地址：${rst.houseAdr}</a><i>|</i></li>
+<li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>容纳人数：${rst.houseGuest}</a></li>
+</div>
+<br>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;信息：${rst.houseInfo}</p>
+</div>
+
+\t\t\t<div class="hotel-amenit animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+\t\t\t\t<h4 class="sing">民宿设施</h4>
+\t\t\t\t<ul>
+\t\t\t\t\t<li>空调</li>
+\t\t\t\t\t<li>洗衣机</li>
+\t\t\t\t\t<li>无线WIFI</li>
+\t\t\t\t\t<li>电视</li>
+\t\t\t\t\t<li>附件有公园</li>
+\t\t\t\t\t<li>独立卫浴</li>
+\t\t\t\t\t<li>提供洗漱用品</li>
+\t\t\t\t\t<div class="clearfix"></div>
+\t\t\t\t</ul>
+\t\t\t</div>
+
+\t\t\t<div class="similar_hotel">
+\t\t\t\t<h4 class="sing">优秀民宿展示</h4>
+\t\t\t\t<div class="hotl-top">
+\t\t\t<div class="col-md-4 hotels-left wow fadeInLeft animated" data-wow-delay=".5s">
+\t\t\t\t<a href="siglepage.html">
+\t\t\t\t\t<div class="view1 view1-sixth">
+\t\t\t\t\t\t<img src="images/h3.jpg" class="img-responsive" alt="">
+\t\t\t\t\t\t\t<div class="mask">
+\t\t\t\t\t\t\t\t<h2>Residence Inn Deptford</h2>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t</div>
+\t\t\t\t</a>
+\t\t\t</div>
+\t\t\t<div class="col-md-4 hotels-left wow fadeInUp animated" data-wow-delay=".5s">
+\t\t\t\t<a href="siglepage.html">
+\t\t\t\t\t<div class="view1 view1-sixth">
+\t\t\t\t\t\t<img src="images/h2.jpg" class="img-responsive" alt="">
+\t\t\t\t\t\t\t<div class="mask">
+\t\t\t\t\t\t\t\t<h2>Residence Inn Deptford</h2>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t</div>
+\t\t\t\t</a>
+\t\t\t</div>
+\t\t\t<div class="col-md-4 hotels-left wow fadeInRight animated" data-wow-delay=".5s">
+\t\t\t\t<a href="siglepage.html">
+\t\t\t\t\t<div class="view1 view1-sixth">
+\t\t\t\t\t\t<img src="images/h4.jpg" class="img-responsive" alt="">
+\t\t\t\t\t\t\t<div class="mask">
+\t\t\t\t\t\t\t\t<h2>Residence Inn Deptford</h2>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t</div>
+\t\t\t\t</a>
+\t\t\t</div>
+\t\t\t<div class="clearfix"></div>
+\t\t</div>
+\t\t\t</div>
+\t</div>`;
+		jQuery("#rooms").html(trs);
+		})
+	}
+
+	jQuery(function () {
+		init();
+		init2();
+	})
+	function houseLocation(location){
+		window.open('Map.html?'+'location=' + encodeURI(location));
+	}
+
+	function init2(){
+		id=Number(houseId);
+		var param={
+			"pageNum":pageNum,
+			"pageSize":pageSize,
+			"houseId":id
+		}
+		console.log(param);
+		jQuery.post("housecom/findAll",param,function (rst) {
+			pageNums=rst.pages;
+			var arrs=rst.list;
+			var trs='';
+			for(var i=0;i<arrs.length;i++) {
+				var u=arrs[i];
+				trs += `
+\t\t\t\t\t\t<div class="recent-comments-grid animated wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="500ms">
+\t\t\t\t\t\t\t<div class="recent-comments-grid-left">
+\t\t\t\t\t\t\t\t<img src="images/t2.jpg" alt=" " class="img-responsive" />
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t<div class="recent-comments-grid-right">
+\t\t\t\t\t\t\t\t<h4><a href="#">用户：${u.houseComUserName}</a></h4>
+\t\t\t\t\t\t\t\t<p>评价内容：${u.houseComInfo}<span>评价时间：${u.houseComDate}</span></p>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t<div class="clearfix"> </div>
+\t\t\t\t\t\t</div>`;
+			}
+			jQuery("#housecom").html(trs);
+			var nums=rst.navigatepageNums;
+			var nav=`<li>
+<a href="#" aria-label="Previous" onclick="pageUtil(${pageNum-1})">
+<span aria-hidden="true">«</span>
+</a>
+</li>`;
+			for(var i=0;i<nums.length;i++){
+				nav+=`<li class="page-item ${pageNum==nums[i]?'active':''}"><a href="#" onclick="pageUtil(${nums[i]})">${nums[i]}</a></li>`;
+			}
+			nav+=`<li>
+<a href="#" aria-label="Next" onclick="pageUtil(${pageNum+1})">
+<span aria-hidden="true">»</span>
+</a>
+</li>`;
+			jQuery("#housecomPage").html(nav);
+		})
+	}
+	function pageUtil(num) {
+		if(num<=1){
+			num=1;
+		}
+		if(num>=pageNums){
+			num=pageNums;
+		}
+		pageNum=num;
+		init2();
+
+	}
+</script>
+</body>
+</html>

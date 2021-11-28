@@ -1,0 +1,202 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Single1</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="" />
+	<script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href='#css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+	<link href='#css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+	<link href='#css?family=Oswald' rel='stylesheet' type='text/css'>
+	<link href="css/font-awesome.css" rel="stylesheet">
+	<!-- Custom Theme files -->
+	<script src="jquery/jquery-3.6.0.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<!--animate-->
+	<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+	<script src="js/wow.min.js"></script>
+
+	<!--//end-animate-->
+</head>
+<body>
+<iframe name="frame" src="top.html" frameborder="0"  width="100%" height="145.5px" style="display: flex" ></iframe>
+<!--- banner-1 ---->
+<div class="banner-1">
+	<div class="container">
+		<h1 class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">生  &nbsp; 活 &nbsp;  与&nbsp;   美&nbsp;   好   &nbsp;尽   &nbsp;在   &nbsp;这 &nbsp;  里</h1>
+	</div>
+</div>
+<!--- /banner-1 ---->
+<!-- blog -->
+<div class="blog">
+	<div class="container">
+		<div class="col-md-11 blog-left">
+			<div id="blogdetail">
+
+			</div>
+			<div class="recent-comments">
+				<h3>最近评论</span></h3>
+				<div id="blogcom"class="recent-comments-grids">
+
+				</div>
+			</div>
+			<nav>
+				<ul id="blogcomPage" class="pagination paging animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+
+				</ul>
+			</nav>
+			<div class="leave-comment animated wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="500ms">
+				<h3>发布你的评论</h3>
+				<form>
+					<textarea type="text" id="blogcomdetail" placeholder="请输入你的评论"></textarea>
+					<div style="text-align: center;">
+						<div class="subscribe animated wow fadeInUp animated" data-wow-duration="1200ms" data-wow-delay="500ms" style="visibility: visible; animation-duration: 1200ms; animation-delay: 500ms; animation-name: fadeInUp;">
+							<button style="width: 150px;" type="button"  onclick="blogcom()">确定评价</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+</div>
+<!--- /single1 ---->
+<!--- footer-top ---->
+<!--- /footer-top ---->
+<!---copy-right ---->
+<div class="copy-right">
+	<div class="container">
+
+		<div class="footer-social-icons wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+			<ul>
+				<li><a class="facebook" href="#"><span>Facebook</span></a></li>
+				<li><a class="twitter" href="#"><span>Twitter</span></a></li>
+				<li><a class="flickr" href="#"><span>Flickr</span></a></li>
+				<li><a class="googleplus" href="#"><span>Google+</span></a></li>
+				<li><a class="dribbble" href="#"><span>Dribbble</span></a></li>
+			</ul>
+		</div>
+		<p class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">© 2016 Green Wheels . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+	</div>
+</div>
+<!--- /copy-right ---->
+<script>
+	var pageNum=1;
+	var pageSize=4;
+	var pageNums=0;
+	var blogId=sessionStorage.getItem("blogInfo");
+	var str=sessionStorage.getItem("info");
+	var user=JSON.parse(str);
+	function init() {
+		jQuery.post("blogmsg/findById",{"blogId":blogId},function (rst) {
+			console.log(rst.blogDate);
+			var trs='';
+			trs+=`\t\t\t\t<div class="comments-list hover14 column animated wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="500ms">
+\t\t\t\t\t<h3>${rst.blogTitle}</h3>
+\t\t\t\t\t<ul>
+\t\t\t\t\t\t<li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>${rst.blogDate}<i>|</i></li>
+\t\t\t\t\t\t<li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>3 Comments</a> <i>|</i></li>
+\t\t\t\t\t\t<li><a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>200 Likes</a> <i>|</i></li>
+\t\t\t\t\t\t<li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>发布人：${rst.blogPublisherName}</a></li>
+\t\t\t\t\t</ul>
+\t\t\t\t\t<div>
+\t\t\t\t\t\t<figure><img style="width: 1000px;height: 500px" src="images/${rst.blogImg}" alt=" " class="img-responsive" /></figure>
+\t\t\t\t\t</div>
+\t\t\t\t\t<p>${rst.blogInfo}</p>
+\t\t\t\t</div>
+\t\t\t\t<div class="admin animated wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="500ms">
+\t\t\t\t\t<div class="admin-left">
+\t\t\t\t\t\t<img src="images/t1.jpg" alt=" " class="img-responsive" />
+\t\t\t\t\t</div>
+\t\t\t\t\t<div class="admin-right">
+\t\t\t\t\t\t<p>如有侵权请联系下方电话<a href="#">发布人电话：${rst.blogPublisherPhoneNumber}</a></p>
+\t\t\t\t\t</div>
+\t\t\t\t\t<div class="clearfix"> </div>
+\t\t\t\t</div>`;
+			jQuery("#blogdetail").html(trs);
+		})
+	}
+	function init2(){
+		id=Number(blogId);
+		var param={
+			"pageNum":pageNum,
+			"pageSize":pageSize,
+			"blogId":id
+		}
+		console.log(param);
+		jQuery.post("blogcom/findAll",param,function (rst) {
+			pageNums=rst.pages;
+			var arrs=rst.list;
+			var trs='';
+			for(var i=0;i<arrs.length;i++) {
+				var u=arrs[i];
+				trs += `
+\t\t\t\t\t\t<div class="recent-comments-grid animated wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="500ms">
+\t\t\t\t\t\t\t<div class="recent-comments-grid-left">
+\t\t\t\t\t\t\t\t<img src="images/t2.jpg" alt=" " class="img-responsive" />
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t<div class="recent-comments-grid-right">
+\t\t\t\t\t\t\t\t<h4><a href="#">用户：${u.blogComUserName}</a></h4>
+\t\t\t\t\t\t\t\t<p>评价内容：${u.blogComInfo}<span>评价时间：${u.blogComDate}</span></p>
+\t\t\t\t\t\t\t</div>
+\t\t\t\t\t\t\t<div class="clearfix"> </div>
+\t\t\t\t\t\t</div>`;
+			}
+			jQuery("#blogcom").html(trs);
+			var nums=rst.navigatepageNums;
+			var nav=`<li>
+<a href="#" aria-label="Previous" onclick="pageUtil(${pageNum-1})">
+<span aria-hidden="true">«</span>
+</a>
+</li>`;
+			for(var i=0;i<nums.length;i++){
+				nav+=`<li class="page-item ${pageNum==nums[i]?'active':''}"><a href="#" onclick="pageUtil(${nums[i]})">${nums[i]}</a></li>`;
+			}
+			nav+=`<li>
+<a href="#" aria-label="Next" onclick="pageUtil(${pageNum+1})">
+<span aria-hidden="true">»</span>
+</a>
+</li>`;
+			jQuery("#blogcomPage").html(nav);
+		})
+	}
+	jQuery(function () {
+		init();
+		init2();
+	})
+	function pageUtil(num) {
+		if(num<=1){
+			num=1;
+		}
+		if(num>=pageNums){
+			num=pageNums;
+		}
+		pageNum=num;
+		init2();
+
+	}
+	function blogcom() {
+		var blogComInfo=jQuery("#blogcomdetail").val();
+		var blogcom={
+			"blogId":blogId,
+			"blogComUserId":user.userId,
+			"blogComUserName":user.userName,
+			"blogComInfo":blogComInfo
+		}
+		jQuery.post("blogcom/save",blogcom,function (rst) {
+			if(rst==1){
+				alert("评价成功")
+				init2();
+			}
+			else {
+				alert("评价失败")
+			}
+		})
+	}
+</script>
+</body>
+</html>

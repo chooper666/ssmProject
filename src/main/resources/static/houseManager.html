@@ -1,0 +1,271 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Modern an Admin Panel Category Flat Bootstarp Resposive Website Template | Basic_tables :: w3layouts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+
+
+    <!-- Custom Theme files -->
+    <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <!-- jQuery -->
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+    <!---//webfonts--->
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.pagination.css"></link>
+    <script src="js/jquery.pagination.min.js"></script>
+    <style>
+        body {
+            background: #fff;
+        }
+
+        #right{
+            float: right;
+        }
+        .houseImg{
+            width: 240px;
+            height: 160px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="modal fade" id="auditDialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">提示</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>您确定审核通过吗？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="doAudit()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="wrapper">
+    <div class="bs-example4" data-example-id="contextual-table">
+        <table id="data" class="table table-bordered">
+            <thead style="background: #08F7B2">
+            <tr>
+                <th>房源名称</th>
+                <th>房源信息</th>
+                <th>房源地址</th>
+                <th>房源发布者</th>
+                <th>房源发布者手机号</th>
+                <th>单日价格</th>
+                <th>允许入住人数</th>
+                <th>发布时间</th>
+                <th>房源图片</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="tableBd">
+
+            </tbody>
+
+            <tfoot>
+            <tr>
+                <td colspan="10">
+                    <div id="page_div">
+                        <div id="left">
+                            <span id="pageNum"></span>/<span id="pages"></span> &nbsp;&nbsp;&nbsp;&nbsp; 共
+                            <span id="totals"></span>条
+                        </div>
+                        <div id="right">
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+    <script>
+        var pageNum = 1;
+        //每页条数
+        var pageSize = 3;
+
+
+        //总页数
+        var pages = 0;
+        //从后台获取当前页对应条数的数据
+        function init() {
+            //其中"pageNum"必须与后台参数同名
+
+
+
+
+
+            var param = {
+                "pageNum": pageNum,
+                "pageSize": pageSize,
+
+            };
+            console.log(param);
+            jQuery.post("housemsg/userfindAll", param, function(rst) {
+                pageNums = rst.pages;
+                jQuery("#pages").html(pageNums);
+                jQuery("#pageNum").html(pageNum);
+                jQuery("#totals").html(rst.total);
+                //把查询的数据显示到表格的tbody位置
+                //1.获取查询的数据
+                var arrs = rst.list;
+                var trs = '';
+                for (var i = 0; i < arrs.length; i++) {
+                    //获取每一行对应的用户对象
+                    var u = arrs[i];
+                    console.log(u.housePbTime)
+                    //循环一次在页面中产生一行数据
+                    //使用反引号，可以使用模板字符串，用于定义模板
+                    if(u.houseStatus==1){
+                        trs += `<tr class="table-success">
+
+                        <td>${u.houseName}</td>
+                        <td>${u.houseInfo}</td>
+                        <td>${u.houseAdr}</td>
+                        <td>${u.houseSellerName}</td>
+                        <td>${u.houseSellerPhoneNumber}</td>
+                        <td>${u.housePrice}</td>
+                        <td>${u.houseGuest}</td>
+                        <td>${u.housePbTime}</td>
+                        <td><img class="houseImg" src="images/${u.houseImg}"></td>
+                        <td>
+                        </td>
+                    </tr>
+
+                    `;
+                    }
+                    else{
+                        trs += `<tr class="table-success">
+
+                        <td>${u.houseName}</td>
+                        <td>${u.houseInfo}</td>
+                        <td>${u.houseAdr}</td>
+                        <td>${u.houseSellerName}</td>
+                        <td>${u.houseSellerPhoneNumber}</td>
+                        <td>${u.housePrice}</td>
+                        <td>${u.houseGuest}</td>
+                        <td>${u.housePbTime}</td>
+                        <td><img class="houseImg" src="images/${u.houseImg}"></td>
+                        <td>
+
+                    <button id="audit" class="btn btn-primary" onclick="showAuditDialog(${u.houseId})">审核</button>
+
+                        </td>
+                    </tr>
+
+                    `;
+                    }
+
+                }
+                //把根据数据构建的行tr添加到表格中
+                jQuery("#tableBd").html(trs);
+                //=========================
+                //设置页码
+                var nums = rst.navigatepageNums;
+                var nav = `
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a href="#" class="page-link"
+                                        onclick="pageUtil(${pageNum-1})">上一页</a>
+                                    </li>
+                    `;
+                //循环读取页码
+                for (var i = 0; i < nums.length; i++) {
+
+                    nav += `
+                                    <li class="page-item ${pageNum==nums[i]?'active':''}">
+                                    <a href="#" class="page-link"
+                                    onclick="pageUtil(${nums[i]})">${nums[i]}</a>
+                                    </li>
+                                `;
+                }
+
+                nav += `               <li class="page-item">
+                                        <a href="#" class="page-link"
+                                        onclick="pageUtil(${pageNum+1})">下一页</a>
+                                    </li>
+
+                                </ul>
+
+
+                `;
+                jQuery("#right").html(nav);
+
+            })
+        }
+        //页面加载完后执行init方法
+        jQuery(function() {
+            init();
+        })
+
+
+    </script>
+
+    <script>
+        //完成分页操作
+        function pageUtil(num) {
+            if (num <= 1) {
+                num = 1;
+            }
+            if (num >= pageNums) {
+                num = pageNums;
+            }
+            pageNum = num;
+            init();
+        }
+    </script>
+
+    <script>
+        var id;
+        function showAuditDialog(houseId) {
+            id=houseId;
+            //给模态框中的span赋值
+            jQuery("#auditDialog").modal('show');
+        }
+
+        function doAudit() {
+            jQuery.post("housemsg/updateStatus",{"houseId":id},function (rst) {
+                jQuery("#auditDialog").modal('hide');
+                if(rst>0){
+                    alert("操作成功");
+                    //删除后显示数据的页码为第一页
+                    pageNum=1;
+                    init();
+
+                }
+                else{
+                    alert("操作失败");
+                }
+
+            })
+
+        }
+    </script>
+</div>
+</body>
+</html>

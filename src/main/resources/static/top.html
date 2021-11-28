@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Hotels</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <link href='#css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- Custom Theme files -->
+    <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+    <!--//end-animate-->
+</head>
+<body>
+
+<!-- top-header -->
+<div class="top-header">
+    <div class="container">
+        <ul class="tp-hd-lft wow fadeInLeft animated" data-wow-delay=".5s">
+            <li class="hm"><a href="about.html"><i class="fa fa-home"></i></a></li>
+            <li class="prnt"><a href="javascript:window.print()">打印订单</a></li>
+
+        </ul>
+        <ul class="tp-hd-rgt wow fadeInRight animated" data-wow-delay=".5s">
+            <li class="tol">工作人员电话 : 123-4568790</li>
+            <li class="sig"><a href="userInfo.html" target="_top" id="userName" ></a></li>
+            <li class="sig"><a href="#"  onclick="chat()" >联系客服&nbsp;</a></li>
+            <li class="sig"><a href="login.html" target="_top" id="exit" >&nbsp;注销</a></li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--- /top-header ---->
+<!--- header ---->
+<div class="header">
+    <div class="container">
+        <div class="logo wow fadeInDown animated" data-wow-delay=".5s">
+            <a href="house.html" target="_top">享 <span>宿</span></a>
+        </div>
+        <div class="bus wow fadeInUp animated" data-wow-delay=".5s">
+            <a href="house.html" target="_top">主页</a>
+        </div>
+        <div class="lock fadeInDown animated" data-wow-delay=".5s">
+            <li><i class="fa fa-lock"></i></li>
+            <li><div class="securetxt">SAFE &amp; SECURE<br> ONLINE PAYMENTS</div></li>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--- /header ---->
+<!--- footer-btm ---->
+<div class="footer-btm wow fadeInLeft animated" data-wow-delay=".5s">
+    <div class="container">
+        <div class="navigation">
+            <nav class="navbar navbar-default">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+                    <nav class="cl-effect-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="about.html" target="_top">关于&nbsp;&nbsp;</a></li>
+                            <li><a href="house.html" target="_top">民宿信息&nbsp;&nbsp;</a></li>
+                            <li><a href="blog.html" target="_top">社区&nbsp;&nbsp;</a></li>
+                            <li><a href="order.html" target="_top">我的订单&nbsp;&nbsp;&nbsp;</a></li>
+                            <li><a href="myblog.html" target="_top">我的博客&nbsp;&nbsp;</a></li>
+                            <li id="publish"></li>
+                            <li><a href="track.html" target="_top">&nbsp;&nbsp;&nbsp;网站功能&nbsp;&nbsp;&nbsp;</a></li>
+                            <li>&nbsp;&nbsp;&nbsp;需要帮助吗?<a href="#" > / 联系客服 </a>  </li>
+
+                        </ul>
+                    </nav>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        </div>
+
+    </div>
+</div>
+<!-- write us -->
+</div>
+<!-- //write us -->
+
+<script>
+
+    var str=sessionStorage.getItem("info");
+    var user=JSON.parse(str);
+    var userId=user.userId;
+
+    function init()
+    {
+        console.log(userId);
+        jQuery.post("user/findById",{"userId":userId},function (rst) {
+            console.log(rst.userName);
+            $("#userName").html('你好'+rst.userName);
+        })
+    }
+    jQuery(function () {
+        init();
+        console.log(user.userStatus);
+        if(user.userStatus == 1){
+            var info=`<a href="publishHome.html" target="_top">发布房源&nbsp;&nbsp;&nbsp;</a>`
+            jQuery("#publish").html(info);
+        }
+    })
+
+    $("#exit").click(function() {
+        window.sessionStorage.removeItem("info");
+    })
+
+    function chat() {
+        window.open('customerchat.html?'+'userId=' + encodeURI(userId));
+    }
+
+
+
+
+</script>
+</body>
+</html>
